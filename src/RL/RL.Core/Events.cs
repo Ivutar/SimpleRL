@@ -8,9 +8,9 @@ namespace RL
 {
     public enum EventKind
     {
-        Empty = 0, //пустое событие
-        Key,       //событие от клавиатуры
-        Mouse,     //событие от мыши
+        Empty = 0, //empty event
+        Key,       //keyboard event
+        Mouse,     //mouse event
     }
 
     [Flags]
@@ -175,15 +175,15 @@ namespace RL
             WinCon.INPUT_RECORD[] buff = new WinCon.INPUT_RECORD[1];
             uint count;
 
-            //считываем события из буфера до тех пор, пока не получим клавиатурное или мышиное событие
+            //read all mouse and keyboard events
             while (true)
             {
-                //если буфер консольниых событий пуст, то выходим
+                //exit if have no events in buffer
                 WinCon.GetNumberOfConsoleInputEvents(handle, out count);
                 if (count <= 0)
                     break;
 
-                //прочитать очередное событие из буфера
+                //get next event from buffer
                 WinCon.ReadConsoleInput(handle, buff, (uint)buff.Length, out count);
                 if (count <= 0)
                     break;
@@ -207,7 +207,7 @@ namespace RL
                         e.Key.Alt = m.HasFlag(Modifiers.LEFT_ALT_PRESSED) || m.HasFlag(Modifiers.RIGHT_ALT_PRESSED);
                         e.Key.Shift = m.HasFlag(Modifiers.SHIFT_PRESSED);
                         e.Key.Ctrl = m.HasFlag(Modifiers.LEFT_CTRL_PRESSED) || m.HasFlag(Modifiers.RIGHT_CTRL_PRESSED);
-                        e.Key.Auto = false; //ir.KeyEvent.wRepeatCount; //... автонажатия клавиши
+                        e.Key.Auto = false; //ir.KeyEvent.wRepeatCount; //... auto key press (probably not work)?
 
                         list.Add(e);
                     }
@@ -244,7 +244,7 @@ namespace RL
                             e.Mouse.X = ir.MouseEvent.dwMousePosition.X;
                             e.Mouse.Y = ir.MouseEvent.dwMousePosition.Y;
 
-                            //было нажатие или отжатие клавиши
+                            //mouse button event (press or release)
                             e.Mouse.Kind = MouseEventKind.Release;
                             bool left = (ir.MouseEvent.dwButtonState & 1) != 0;
                             bool right = (ir.MouseEvent.dwButtonState & 2) != 0;

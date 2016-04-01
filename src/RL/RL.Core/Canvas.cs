@@ -141,22 +141,22 @@ namespace RL
             width = width < 1 ? 1 : width;
             height = height < 1 ? 1 : height;
 
-            //создать новый буфер
+            //create the new buffer
             CharInfo[,] tmp = new CharInfo[width, height];
 
-            //заполнить новый буфер данными по умолчанию
+            //fill buffer by default values
             for (int j = 0; j < height; j++)
                 for (int i = 0; i < width; i++)
                     tmp[i, j] = new CharInfo(' ', Color.White, Color.Black);
 
-            //перенести в новый буфер данные из старого буфера
+            //copy data from old buffer
             int wd = Math.Min(Width, width);
             int hg = Math.Min(Height, height);
             for (int j = 0; j < hg; j++)
                 for (int i = 0; i < wd; i++)
                     tmp[i, j] = buffer[i, j];
 
-            //заменяем старый буфер на новый
+            //switch to new buffer
             buffer = tmp;
         }
         public void Copy(Canvas from, int to_x = 0, int to_y = 0, int? to_width = null, int? to_height = null, int from_x = 0, int from_y = 0)
@@ -201,10 +201,10 @@ namespace RL
             if (string.IsNullOrWhiteSpace(filename) || !File.Exists(filename))
                 return res;
 
-            //загрузка
+            //load file
             string[] lines = File.ReadAllLines(filename);
 
-            //размеры
+            //size
             int width;
             int height;
 
@@ -223,7 +223,7 @@ namespace RL
 
             res = new Canvas(width, height);
 
-            //символы
+            //chars
             int row = 1;
             for (int y = 0; y < height && row < lines.Length; y++, row++)
             {
@@ -236,7 +236,7 @@ namespace RL
                 }
             }
 
-            //цвет символов
+            //fore
             for (int y = 0; y < height && row < lines.Length; y++, row++)
             {
                 string line = lines[row];
@@ -248,7 +248,7 @@ namespace RL
                 }
             }
 
-            //цвет фона
+            //back
             for (int y = 0; y < height && row < lines.Length; y++, row++)
             {
                 string line = lines[row];
@@ -266,10 +266,10 @@ namespace RL
         {
             List<string> lines = new List<string>();
 
-            //размеры
+            //size
             lines.Add(string.Format("{0} {1}", Width, Height));
 
-            //символы
+            //chars
             for (int y = 0; y < Height; y++)
             {
                 StringBuilder sb = new StringBuilder(Width);
@@ -278,7 +278,7 @@ namespace RL
                 lines.Add(sb.ToString());
             }
 
-            //цвет символов
+            //fore
             for (int y = 0; y < Height; y++)
             {
                 StringBuilder sb = new StringBuilder(Width);
@@ -287,7 +287,7 @@ namespace RL
                 lines.Add(sb.ToString());
             }
 
-            //цвет фона
+            //back
             for (int y = 0; y < Height; y++)
             {
                 StringBuilder sb = new StringBuilder(Width);
@@ -296,7 +296,7 @@ namespace RL
                 lines.Add(sb.ToString());
             }
 
-            //сохранение
+            //save
             File.WriteAllLines(filename, lines.ToArray());
         }
         public void Write(int x, int y, string text, Color fore = Color.White, Color back = Color.Black, int? width = null, int offset = 0)
@@ -313,11 +313,11 @@ namespace RL
             int left = x;
             int right = Math.Min(x + text.Length - 1, Width - 1);
 
-            //индексы символов, которые подлежат выводу на экран
+            //indexes for 'text' argument
             int begin = left - x + offset;
             int end = right - x + offset;
 
-            //вывод на экран
+            //write to buffer
             for (int i = left, j = begin; i <= right && j <= end; i++, j++)
                 if (j >= 0 && j < text.Length)
                     buffer[i, y] = new CharInfo(text[j], fore, back);
@@ -431,23 +431,15 @@ namespace RL
             if (width < 1) width = 1;
             if (height < 1) height = 1;
 
-            try { Console.WindowWidth = width; }
-            catch { }
-            try { Console.WindowHeight = height; }
-            catch { }
-            try { Console.BufferWidth = width; }
-            catch { }
-            try { Console.BufferHeight = height; }
-            catch { }
+            try { Console.WindowWidth  = width;  } catch { }
+            try { Console.WindowHeight = height; } catch { }
+            try { Console.BufferWidth  = width;  } catch { }
+            try { Console.BufferHeight = height; } catch { }
 
-            try { Console.WindowWidth = width; }
-            catch { }
-            try { Console.WindowHeight = height; }
-            catch { }
-            try { Console.BufferWidth = width; }
-            catch { }
-            try { Console.BufferHeight = height; }
-            catch { }
+            try { Console.WindowWidth  = width;  } catch { }
+            try { Console.WindowHeight = height; } catch { }
+            try { Console.BufferWidth  = width;  } catch { }
+            try { Console.BufferHeight = height; } catch { }
         }
         public static void Swap()
         {
@@ -457,7 +449,7 @@ namespace RL
             int wd = Math.Min(Util.Buffer.Width, Width);
             int hg = Math.Min(Util.Buffer.Height, Height);
 
-            //заполняем буфер
+            //fill buffer
             WinCon.CHAR_INFO[] buf = new WinCon.CHAR_INFO[wd * hg];
             for (int y = 0; y < hg; y++)
                 for (int x = 0; x < wd; x++)
@@ -472,24 +464,24 @@ namespace RL
                         );
                 }
 
-            //размеры копируемого буфера
+            //set size
             WinCon.COORD size;
             size.X = (short)wd;
             size.Y = (short)hg;
 
-            //координаты внутри буфера, с которых начинается вывод
+            //start position
             WinCon.COORD coord;
             coord.X = 0;
             coord.Y = 0;
 
-            //координаты прямоугольника на экране, куда происходит копирование
+            //target rect
             WinCon.SMALL_RECT rc;
             rc.Left = (short)0;
             rc.Right = (short)(wd - 1);
             rc.Top = (short)0;
             rc.Bottom = (short)(hg - 1);
 
-            //вывод в консоль
+            //write to console
             IntPtr handle = WinCon.GetStdHandle((int)-11);
             WinCon.WriteConsoleOutput(handle, buf, size, coord, ref rc);
         }
