@@ -64,7 +64,7 @@ namespace E2M1
 
         static void Main(string[] args)
         {
-            Util.Title = "E1M2 - Simple maze game";
+            Util.Title = "E2M1 - Simple maze game";
             Util.Width = MapWidth;
             Util.Height = MapHeight;
             Util.CursorVisible = false;
