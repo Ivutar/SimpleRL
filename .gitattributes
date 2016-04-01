@@ -1,0 +1,53 @@
+# Declare files that will always have CRLF line endings on checkout.
+.gitignore text eol=crlf
+
+*.asax text eol=crlf
+*.asp text eol=crlf
+*.aspx text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.config text eol=crlf
+*.cs text eol=crlf
+*.cshtml text eol=crlf
+*.csproj text eol=crlf
+*.css text eol=crlf
+*.htm text eol=crlf
+*.html text eol=crlf
+*.js text eol=crlf
+*.reg text eol=crlf
+*.sln text eol=crlf
+*.sln.dotsettings text eol=crlf
+*.txt text eol=crlf
+*.vb text eol=crlf
+*.vbs text eol=crlf
+*.xaml text eol=crlf
+*.xml text eol=crlf
+*.xsd text eol=crlf
+*.xdt text eol=crlf
+*.ps1 text eol=crlf
+
+
+# Declare binary files
+*.bmp binary
+*.gif binary
+*.jpg binary
+*.ico binary
+*.png binary
+
+*.cer binary
+*.dem binary
+*.pem binary
+*.pfx binary
+*.pvk binary
+
+*.dll binary
+*.exe binary
+
+*.doc binary
+*.docx binary
+*.rtf binary
+*.xls binary
+*.xlsx binary
+*.pdf binary
+*.vsd binary
+*.chm binary
