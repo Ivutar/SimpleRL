@@ -457,7 +457,7 @@ namespace RL
             int wd = Math.Min(Util.Buffer.Width, Width);
             int hg = Math.Min(Util.Buffer.Height, Height);
 
-            //заполняем буффер
+            //заполняем буфер
             WinCon.CHAR_INFO[] buf = new WinCon.CHAR_INFO[wd * hg];
             for (int y = 0; y < hg; y++)
                 for (int x = 0; x < wd; x++)
@@ -472,12 +472,12 @@ namespace RL
                         );
                 }
 
-            //размеры копируемого буффера
+            //размеры копируемого буфера
             WinCon.COORD size;
             size.X = (short)wd;
             size.Y = (short)hg;
 
-            //координаты внутри буффера, с которых начинается вывод
+            //координаты внутри буфера, с которых начинается вывод
             WinCon.COORD coord;
             coord.X = 0;
             coord.Y = 0;
