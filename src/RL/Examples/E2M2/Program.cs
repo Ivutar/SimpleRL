@@ -63,6 +63,7 @@ namespace E2M2
                 if (e.Kind == EventKind.Key && e.Key.Press)
                 {
                     if (e.Key.Key == ConsoleKey.Escape) break;
+                    if (e.Key.Key == ConsoleKey.Spacebar) map = (new MazeGenerator(80, 25, 5, 20)).Generate();
                     if (e.Key.Key == ConsoleKey.LeftArrow) Move(-1, 0);
                     if (e.Key.Key == ConsoleKey.RightArrow) Move(1, 0);
                     if (e.Key.Key == ConsoleKey.UpArrow) Move(0, -1);
