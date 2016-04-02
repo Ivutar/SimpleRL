@@ -8,10 +8,10 @@ namespace E2M2
 {
     public class MazeGenerator
     {
-        const int EMPTY     = 0;
         const int DIRT      = 1;
         const int WALL      = 2;
-        const int HARD_WALL = 3;
+        const int HARD_WALL = 3; //unbreakable
+        const int EMPTY     = 4;
 
         struct Point
         {
@@ -68,11 +68,36 @@ namespace E2M2
             return HARD_WALL; //by default;
         }
 
+        bool DiagonalCorner(int x, int y)
+        {
+            //##?
+            //.x#
+            //##?
+            if (map[x - 1, y] == EMPTY && (map[x + 1, y - 1] == EMPTY || map[x + 1, y + 1] == EMPTY)) return true;
+
+            //?##
+            //#x.
+            //?##
+            if (map[x + 1, y] == EMPTY && (map[x - 1, y - 1] == EMPTY || map[x - 1, y + 1] == EMPTY)) return true;
+
+            //#.#
+            //#x#
+            //?#?
+            if (map[x, y - 1] == EMPTY && (map[x - 1, y + 1] == EMPTY || map[x + 1, y + 1] == EMPTY)) return true;
+
+            //?#?
+            //#x#
+            //#.#
+            if (map[x, y + 1] == EMPTY && (map[x - 1, y - 1] == EMPTY || map[x + 1, y - 1] == EMPTY)) return true;
+
+            return false;
+        }
+
         bool AnyWalls()
         {
             for (int y = 0; y < Height; y++)
                 for (int x = 0; x < Width; x++)
-                    if (map[x, y] == WALL)
+                    if (map[x, y] == WALL && !DiagonalCorner(x,y))
                         return true;
 
             return false;
@@ -84,7 +109,7 @@ namespace E2M2
 
             for (int y = 0; y < Height; y++)
                 for (int x = 0; x < Width; x++)
-                    if (map[x, y] == WALL)
+                    if (map[x, y] == WALL && !DiagonalCorner(x, y))
                         walls.Add(new Point() { x = x, y = y });
 
             Point wall = walls[rnd.Next(walls.Count)];
@@ -98,24 +123,20 @@ namespace E2M2
                 return;
 
             map[x, y] = EMPTY;
+
             map[x - 1, y] = UpdateTileType(map[x - 1, y]);
             map[x + 1, y] = UpdateTileType(map[x + 1, y]);
             map[x, y - 1] = UpdateTileType(map[x, y - 1]);
             map[x, y + 1] = UpdateTileType(map[x, y + 1]);
-
-            //map[x - 1, y - 1] = UpdateTileType(map[x - 1, y - 1]);
-            //map[x + 1, y - 1] = UpdateTileType(map[x + 1, y - 1]);
-            //map[x - 1, y + 1] = UpdateTileType(map[x - 1, y + 1]);
-            //map[x + 1, y + 1] = UpdateTileType(map[x + 1, y + 1]);
         }
 
         bool CanDig(int x, int y)
         {
             int walls = 0;
-            if (map[x - 1, y] == WALL) walls++;
-            if (map[x + 1, y] == WALL) walls++;
-            if (map[x, y - 1] == WALL) walls++;
-            if (map[x, y + 1] == WALL) walls++;
+            if (map[x - 1, y] == WALL && !DiagonalCorner(x - 1, y)) walls++;
+            if (map[x + 1, y] == WALL && !DiagonalCorner(x + 1, y)) walls++;
+            if (map[x, y - 1] == WALL && !DiagonalCorner(x, y - 1)) walls++;
+            if (map[x, y + 1] == WALL && !DiagonalCorner(x, y + 1)) walls++;
             return walls > 0;
         }
 
@@ -123,10 +144,10 @@ namespace E2M2
         {
             List<Point> dir = new List<Point>();
 
-            if (map[currentx - 1, currenty] == WALL) dir.Add(new Point() { x = currentx - 1, y = currenty });
-            if (map[currentx + 1, currenty] == WALL) dir.Add(new Point() { x = currentx + 1, y = currenty });
-            if (map[currentx, currenty - 1] == WALL) dir.Add(new Point() { x = currentx, y = currenty - 1 });
-            if (map[currentx, currenty + 1] == WALL) dir.Add(new Point() { x = currentx, y = currenty + 1 });
+            if (map[currentx - 1, currenty] == WALL && !DiagonalCorner(currentx - 1, currenty)) dir.Add(new Point() { x = currentx - 1, y = currenty });
+            if (map[currentx + 1, currenty] == WALL && !DiagonalCorner(currentx + 1, currenty)) dir.Add(new Point() { x = currentx + 1, y = currenty });
+            if (map[currentx, currenty - 1] == WALL && !DiagonalCorner(currentx, currenty - 1)) dir.Add(new Point() { x = currentx, y = currenty - 1 });
+            if (map[currentx, currenty + 1] == WALL && !DiagonalCorner(currentx, currenty + 1)) dir.Add(new Point() { x = currentx, y = currenty + 1 });
 
             if (dir.Count <= 0)
             {
@@ -201,7 +222,7 @@ namespace E2M2
             int[,] res = new int[Width, Height];
             for (int y = 0; y < Height; y++)
                 for (int x = 0; x < Width; x++)
-                    if (map[x, y] == 0)
+                    if (map[x, y] == EMPTY)
                         res[x, y] = 0;
                     else
                         res[x, y] = 1;
