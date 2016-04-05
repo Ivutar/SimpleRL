@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace RL
 {
@@ -485,5 +486,83 @@ namespace RL
             IntPtr handle = WinCon.GetStdHandle((int)-11);
             WinCon.WriteConsoleOutput(handle, buf, size, coord, ref rc);
         }
+
+        #region [ Read from config ]
+
+        //read from config (bool)
+        public static bool ReadConfigBool(string key, bool dflt = false)
+        {
+            bool val = dflt;
+
+            string str = ConfigurationManager.AppSettings[key];
+            if (str != null)
+            {
+                str = str.Trim().ToLower();
+                if (str == "1" || str == "true" || str == "y" || str == "yes") val = true;
+                if (str == "0" || str == "false" || str == "n" || str == "no" || str == "not" || str == "none") val = false;
+            }
+
+            return val;
+        }
+
+        //read from config (string)
+        public static string ReadConfigString(string key, string dflt = "")
+        {
+            string val = dflt;
+
+            string str = ConfigurationManager.AppSettings[key];
+            if (str != null)
+                val = str;
+
+            return val;
+        }
+
+        //read from config (char)
+        public static char ReadConfigChar(string key, char dflt = ' ')
+        {
+            char val = dflt;
+
+            string str = ConfigurationManager.AppSettings[key];
+            if (!string.IsNullOrEmpty(str))
+                val = str[0];
+
+            return val;
+        }
+
+        //read from config (int)
+        public static int ReadConfigInt(string key, int dflt = 0, int min = int.MinValue, int max = int.MaxValue)
+        {
+            if (String.IsNullOrEmpty(key))
+                return dflt;
+
+            int val = 0;
+            if (!int.TryParse(ConfigurationManager.AppSettings[key], out val))
+                val = dflt;
+
+            //foolproof
+            if (min > max) { int t = min; min = max; max = min; }
+
+            //limits
+            if (val < min) val = min;
+            if (val > max) val = max;
+
+            return val;
+        }
+
+        //read from config (Color)
+        public static Color ReadConfigColor(string key, Color dflt = Color.Black)
+        {
+            if (String.IsNullOrEmpty(key))
+                return dflt;
+
+            Color val = dflt;
+            if (!Enum.TryParse<Color>(ConfigurationManager.AppSettings[key], out val))
+                val = dflt;
+
+            return val;
+        }
+
+        #endregion
+
     }
 }
