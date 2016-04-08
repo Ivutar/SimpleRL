@@ -85,6 +85,7 @@ namespace E2M3
                         map[newx, newy] = EMPTY;
                         collectedcoins++;
                     }
+                    steps++;
                     UpdateBuffer();
                 }
             }

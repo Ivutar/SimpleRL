@@ -9,9 +9,18 @@ namespace E2M3
 {
     class Program
     {
+        static int offsetx = Util.ReadConfigInt("View.X", 1);
+        static int offsety = Util.ReadConfigInt("View.Y", 1);
+        static int infox = Util.ReadConfigInt("Info.X", 1);
+        static int infoy = Util.ReadConfigInt("Info.Y", 1);
+
         static void Draw(Game game)
         {
-            Util.Buffer.Copy(game.Buffer);
+            Util.Buffer.Clear(new CharInfo(' ', Color.Black, Color.LightGray));
+            Util.Buffer.Write(infox, infoy, string.Format("Conis: {0}/{1}", game.CollectedCoins, game.TotalCoins), Color.Black, Color.LightGray);
+            Util.Buffer.Write(infox, infoy+2, string.Format("Steps: {0}", game.Steps), Color.Black, Color.LightGray);
+
+            Util.Buffer.Copy(game.Buffer, offsetx, offsety);
             Util.Swap();
         }
 
