@@ -325,6 +325,43 @@ namespace RL
                 else
                     buffer[i, y] = new CharInfo(' ', fore, back);
         }
+        public void Line(int x1, int y1, int x2, int y2, CharInfo ci)
+        {
+            int xn = x1,
+                yn = y1,
+                xk = x2,
+                yk = y2;
+            {
+                int dx, dy, s, sx, sy, kl, swap, incr1, incr2;
+
+                // calc increments and steps
+                sx = 0;
+                if ((dx = xk - xn) < 0) { dx = -dx; --sx; } else if (dx > 0) ++sx;
+                sy = 0;
+                if ((dy = yk - yn) < 0) { dy = -dy; --sy; } else if (dy > 0) ++sy;
+                // check angle
+                swap = 0;
+                if ((kl = dx) < (s = dy))
+                {
+                    dx = s; dy = kl; kl = s; ++swap;
+                }
+
+                s = (incr1 = 2 * dy) - dx;
+                incr2 = 2 * dx; 
+                this[xn, yn] = ci; //first "pixel"
+                while (--kl >= 0)
+                {
+                    if (s >= 0)
+                    {
+                        if (swap != 0) xn += sx; else yn += sy;
+                        s -= incr2;
+                    }
+                    if (swap != 0) yn += sy; else xn += sx;
+                    s += incr1;
+                    this[xn, yn] = ci; //current "pixel"
+                }
+            }
+        }
 
         private static Color Char2Color(char c)
         {
