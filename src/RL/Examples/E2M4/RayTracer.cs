@@ -33,8 +33,8 @@ namespace E2M4
             double y2 = y + Math.Sin(angle);
 
             //current cell (zero-based index)
-            int cx = (int)Math.Floor(x / cellsize);
-            int cy = (int)Math.Floor(y / cellsize);
+            int cx = (int)Math.Truncate(x / cellsize);
+            int cy = (int)Math.Truncate(y / cellsize);
 
             //increments for cell
             int icx = x2 - x1 > 0 ? 1 : -1;
