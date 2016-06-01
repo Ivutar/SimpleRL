@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Canvas.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="FOV\IFOV.cs" />
+    <Compile Include="FOV\RecursiveShadowCasting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WinCon.cs" />
   </ItemGroup>
