@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace RL.FOV
 {
-    interface IFOV
+    public interface IFOV
     {
         double ViewRadius { get; set; }
-        void ComputeVisibility(int posx, int posy, Func<int, int, bool> isSolidBlock, Action<int, int, double> setBlockLightDistanceSquared);
+
+        Func<int, int, bool> IsSolidBlock { get; set; }
+
+        Action<int, int, double> SetBlockLightDistanceSquared { get; set; }
+
+        void ComputeVisibility(int posx, int posy);
     }
 }

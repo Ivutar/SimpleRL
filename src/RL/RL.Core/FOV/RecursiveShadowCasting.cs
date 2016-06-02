@@ -3,7 +3,7 @@
 
 namespace RL.FOV
 {
-    class RecursiveShadowCasting : IFOV
+    public class RecursiveShadowCasting : IFOV
     {
         double viewRadius = 1;
         double viewRadiusSq = 1;
@@ -23,15 +23,19 @@ namespace RL.FOV
             }
         }
 
-        public void ComputeVisibility(int posx, int posy, Func<int, int, bool> isSolidBlock, Action<int, int, double> setBlockLightDistanceSquared)
+        public Func<int, int, bool> IsSolidBlock { get; set; }
+
+        public Action<int, int, double> SetBlockLightDistanceSquared { get; set; }
+
+        public void ComputeVisibility(int posx, int posy)
         {
-            setBlockLightDistanceSquared(posx, posy, 0.0f);
+            SetBlockLightDistanceSquared(posx, posy, 0.0f);
 
             for (int txidx = 0; txidx < s_octantTransform.Length; txidx++)
-                CastLight(posx, posy, isSolidBlock, setBlockLightDistanceSquared, 1, 1.0f, 0.0f, s_octantTransform[txidx]);
+                CastLight(posx, posy, 1, 1.0f, 0.0f, s_octantTransform[txidx]);
         }
 
-        #region [ tools ] 
+        #region [ tools ]
 
         private class OctantTransform
         {
@@ -70,8 +74,6 @@ namespace RL.FOV
 
          void CastLight(
             int posx, int posy,
-            Func<int, int, bool> isSolidBlock,
-            Action<int, int, double> setBlockLightDistanceSquared,
             int startColumn,
             double leftViewSlope, double rightViewSlope,
             OctantTransform txfrm)
@@ -98,9 +100,9 @@ namespace RL.FOV
 
                     double distanceSquared = xc * xc + yc * yc;
                     if (distanceSquared <= viewRadiusSq)
-                        setBlockLightDistanceSquared(gridX, gridY, distanceSquared);
+                        SetBlockLightDistanceSquared(gridX, gridY, distanceSquared);
 
-                    bool curBlocked = isSolidBlock(gridX, gridY);
+                    bool curBlocked = IsSolidBlock(gridX, gridY);
 
                     if (prevWasBlocked)
                     {
@@ -117,7 +119,7 @@ namespace RL.FOV
                         if (curBlocked)
                         {
                             if (leftBlockSlope <= leftViewSlope)
-                                CastLight(posx, posy, isSolidBlock, setBlockLightDistanceSquared, currentCol + 1, leftViewSlope, leftBlockSlope, txfrm);
+                                CastLight(posx, posy, currentCol + 1, leftViewSlope, leftBlockSlope, txfrm);
 
                             prevWasBlocked = true;
                             savedRightSlope = rightBlockSlope;
