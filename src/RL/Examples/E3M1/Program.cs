@@ -16,11 +16,44 @@ namespace E3M1
             Util.Height = 25;
             Util.CursorVisible = false;
 
-            Util.Buffer.Clear();
-            Util.Buffer.Write(0, 0, "Simple menu");
-            Util.Swap();
+            TextEdit edit1 = new TextEdit(5) { Text = "some_text", TextBack = Color.DarkGray, Focus = true, MaxLength = 5 };
+            TextEdit edit2 = new TextEdit(16) { Text = "some very long text with very useless words", TextBack = Color.DarkGray };
+            Widget current = edit1;
+            edit1.Draw();
+            edit2.Draw();
 
-            Console.ReadKey(true);
+            while (true)
+            {
+                //update screen
+                Util.Buffer.Clear();
+                Util.Buffer.Copy(edit1, 2, 2);
+                Util.Buffer.Copy(edit2, 2, 4);
+                Util.Swap();
+
+                //process input events
+                Event e = Events.GetNext(true);
+
+                //check exit events
+                if (e.Kind == EventKind.Key && e.Key.Key == ConsoleKey.Escape)
+                    break;
+
+                //check textbox events
+                if(!current.ProcessEvent(e))
+                    if (e.Kind == EventKind.Key && e.Key.Press)
+                        if (e.Key.Key == ConsoleKey.Tab || e.Key.Key == ConsoleKey.UpArrow || e.Key.Key == ConsoleKey.DownArrow)
+                        {
+                            //switch current control
+                            current.Focus = false;
+                            if (current == edit1)
+                                current = edit2;
+                            else
+                                current = edit1;
+                            current.Focus = true;
+                            edit1.Draw();
+                            edit2.Draw();
+                        }
+            }
+
         }
     }
 }
