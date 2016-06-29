@@ -27,8 +27,6 @@ namespace RL
                 UpdateOffset();
             }
         }
-        public Color TextFore { get; set; }
-        public Color TextBack { get; set; }
         public Color CursorFore { get; set; }
         public Color CursorBack { get; set; }
         public int? MaxLength { get { return maxlength; } set { if (value == null || value > 0) { maxlength = value; Text = text; } } }
@@ -43,8 +41,8 @@ namespace RL
         {
             text = "";
 
-            TextFore   = Color.LightGray; 
-            TextBack   = Color.Black;
+            Fore       = Color.LightGray; 
+            Back       = Color.Black;
             CursorFore = Color.Black;
             CursorBack = Color.LightGray;
 
@@ -53,7 +51,7 @@ namespace RL
             offset = 0;
         }
 
-        public override bool ProcessEvent(Event e)
+        public override bool Input(Event e)
         {
             if (e.Kind != EventKind.Key)
                 return false;
@@ -149,8 +147,8 @@ namespace RL
 
         public override void Draw()
         {
-            Clear(new CharInfo(' ', TextFore, TextBack));
-            Write(0, 0, Text, TextFore, TextBack, null, offset);
+            Clear(new CharInfo(' ', Fore, Back));
+            Write(0, 0, Text, Fore, Back, null, offset);
             if (Focus)
             {
                 string cursor = " ";

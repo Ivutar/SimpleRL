@@ -11,18 +11,22 @@ namespace RL
         public int Left { get; set; }
         public int Top { get; set; }
 
+        public Color Fore { get; set; }
+        public Color Back { get; set; }
+
+        public bool Visible { get; set; }
+        public bool Focus { get; set; }
+
         /// <summary>
         /// Performs event processing and redraws widget if it is required
         /// </summary>
         /// <param name="e">event for widget processing</param>
         /// <returns>returns true - if event was processed and widget was redrawn</returns>
-        public virtual bool ProcessEvent(Event e) { return false; }
+        public virtual bool Input(Event e) { return false; }
 
         public virtual void Draw() { }
 
-        public virtual bool Focus { get; set; }
-
-        public Widget() { }
-        public Widget(int width, int height) : base(width, height) { }
+        public Widget() { Visible = true; }
+        public Widget(int width, int height) : base(width, height) { Visible = true; }
     }
 }
