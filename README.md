@@ -7,9 +7,9 @@ todo
 ##Examples
 All example projects use E?M? naming. Here E? - group and M? - project number in group.
   
-E1 - base examples  
-E2 - game examples  
-E3 - UI examples  
+[E1 - base examples](#e1---base-examples)  
+[E2 - game examples](#e2---game-examples)  
+[E3 - UI examples](#e3---ui-examples)  
  
 ### E1 - base examples
 
