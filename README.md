@@ -7,11 +7,26 @@ todo
 ##Examples
 All example projects use E?M? naming. Here E? - group and M? - project number in group.
   
-[E1 - base examples](#e1---base-examples)  
-[E2 - game examples](#e2---game-examples)  
-[E3 - UI examples](#e3---ui-examples)  
- 
-### E1 - base examples
+* [E1 - BASE EXAMPLES](#e1---base-examples)
+ * [E1M1 - Hello world](#e1m1---hello-world)
+ * [E1M2 - Simple events loop](#e1m2---simple-events-loop)
+ * [E1M3 - Load canvas content](#e1m3---load-canvas-content)
+ * [E1M4 - Mouse painter](#e1m4---mouse-painter)
+ * [E1M5 - Working with config helper](#e1m5---working-with-config-helper)
+ * [E1M6 - Lines](#e1m6---lines)
+* [E2 - GAME EXAMPLES](#e2---game-examples)
+ * [E2M1 - Simple maze game](#e2m1---simple-maze-game)
+ * [E2M2 - Random maze game](#e2m2---random-maze-game)
+ * [E2M3 - Extended maze game](#e2m3---extended-maze-game)
+ * [E2M4 - 3D Maze](#e2m4---3d-maze)
+ * [E2M5 - FOV](#e2m5---fov)
+* [E3 - UI EXAMPLES](#e3---ui-examples)
+ * [E3M1 - Simple UI with textboxes](#e3m1---simple-ui-with-textboxes)
+ * [E3M2 - Panel Example](#e3m2---panel-example)
+ * [E3M3 - Colored string](#e3m3---colored-string)
+ * [E3M4 - Menu](#e3m4---menu)
+  
+### E1 - BASE EXAMPLES
 
 #### E1M1 - Hello world  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513381/5d0f37c4-3f75-11e6-9e4a-0b95442d4cd2.png)
@@ -122,7 +137,7 @@ first line:
 #### E1M6 - Lines  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513482/387ec072-3f76-11e6-9910-700bb5a13566.png)
   
-### E2 - game examples
+### E2 - GAME EXAMPLES
   
 #### E2M1 - Simple maze game  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513502/56926622-3f76-11e6-9683-9dcc2da2ddae.png)
@@ -139,7 +154,7 @@ first line:
 #### E2M5 - FOV  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513582/e9d47a1a-3f76-11e6-914d-627d0d458154.png)
   
-### E3 - UI examples
+### E3 - UI EXAMPLES
   
 #### E3M1 - Simple UI with textboxes  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513610/157ba814-3f77-11e6-8536-7d2a0fd57e32.png)
