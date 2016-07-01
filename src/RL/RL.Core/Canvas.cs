@@ -66,6 +66,12 @@ namespace RL
         }
     }
 
+    public class ColorInfo
+    {
+        public Color? Fore;
+        public Color? Back;
+    }
+
     public class Canvas
     {
         CharInfo[,] buffer;
@@ -324,6 +330,29 @@ namespace RL
                     buffer[i, y] = new CharInfo(text[j], fore, back);
                 else
                     buffer[i, y] = new CharInfo(' ', fore, back);
+        }
+        public void Write(int x, int y, CharInfo[] text, int? width = null, int offset = 0)
+        {
+            if (text == null || text.Length <= 0)
+                return;
+            if (width == null)
+                width = text.Length;
+            if (x >= Width || x + width - 1 < 0)
+                return;
+            if (y >= Height || y < 0)
+                return;
+
+            int left = x;
+            int right = Math.Min(x + text.Length - 1, Width - 1);
+
+            //indexes for 'text' argument
+            int begin = left - x + offset;
+            int end = right - x + offset;
+
+            //write to buffer
+            for (int i = left, j = begin; i <= right && j <= end; i++, j++)
+                if (j >= 0 && j < text.Length)
+                    buffer[i, y] = text[j];
         }
         public void Line(int x1, int y1, int x2, int y2, CharInfo ci)
         {
