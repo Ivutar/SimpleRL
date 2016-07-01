@@ -53,8 +53,65 @@ The **Event** struct contains info about event kind and additional event data (c
 	if (e.Kind == EventKind.Key && !e.Key.Press && e.Key.Key == ConsoleKey.Escape)
 	    break;
   
-**E1M3**  
+**E1M3 - Load canvas content**  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513424/bcfcb0da-3f75-11e6-9efd-9addfc320cd0.png)
+
+Console content can be easy saved or loaded via simple text format:
+
+    Canvas pic = Canvas.Load("screen.rl");
+    Util.Buffer.Copy(pic, 4, 1);
+
+Here example and description of *.rl format:
+
+    15 12
+    ###############
+    # #     # ##  #
+    # # # #      ##
+    #   # # ## ####
+    ## ##    #    #
+    #   # ###### ##
+    ## ##    @## ##
+    #     # # #   #
+    # ### # # # # #
+    # # ### # # # #
+    #     # #   # #
+    ###############
+    888888888888888
+    8F8FFFFF8F88FF8
+    8F8F8F8FFFFFF88
+    8FFF8F8F88F8888
+    88F88FFFF8FFFF8
+    8FFF8F888888F88
+    88F88FFFFE88F88
+    8FFFFF8F8F8FFF8
+    8F888F8F8F8F8F8
+    8F8F888F8F8F8F8
+    8FFFFF8F8FFF8F8
+    888888888888888
+    000000000000000
+    000000000000000
+    000000000000000
+    000000000000000
+    000000000000000
+    000000000000000
+    000000000000000
+    000000000000000
+    000000000000000
+    000000000000000
+    000000000000000
+    000000000000000
+
+first line:  
+***width height***
+  
+[1, height + 1] lines:  
+***symbols***
+  
+[height + 2, 2 * height + 1] lines:  
+***fore colors***
+  
+[2 * height + 2, 3 * height + 1] lines:  
+***back colors***
   
 **E1M4**  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513451/f10fc98e-3f75-11e6-8d8c-06663e488caf.png)
