@@ -48,14 +48,14 @@ namespace RL
             return Widgets[i];
         }
 
-        public Panel() : base () { }
-        public Panel(int width, int height) : base(width, height) { }
-        public Panel(int width, int height, Canvas target) : base(width, height) { Target = target; }
-
         /// <summary>
         /// returns true if event propagation must be stopped
         /// </summary>
         public Func<Panel, Widget, Event, bool> BeforeInput;
+
+        public Panel() : base () { }
+        public Panel(int width, int height) : base(width, height) { }
+        public Panel(int width, int height, Canvas target) : base(width, height) { Target = target; }
 
         public override bool Input(Event e)
         {

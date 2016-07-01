@@ -8,6 +8,11 @@ namespace RL
 {
     public class TextEdit : Widget
     {
+        string text;
+        int? maxlength;
+        int position;
+        int offset;
+
         public string Text
         {
             get { return text; }
@@ -30,11 +35,6 @@ namespace RL
         public Color CursorFore { get; set; }
         public Color CursorBack { get; set; }
         public int? MaxLength { get { return maxlength; } set { if (value == null || value > 0) { maxlength = value; Text = text; } } }
-
-        string text;
-        int? maxlength;
-        int position;
-        int offset;
 
         public TextEdit(int width)
             : base(width, 1)
