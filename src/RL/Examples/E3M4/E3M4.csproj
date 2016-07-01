@@ -50,6 +50,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RL.Core\RL.Core.csproj">
+      <Project>{6b04d610-daed-4781-bf59-de81d6bfbca0}</Project>
+      <Name>RL.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RL.UI\RL.UI.csproj">
+      <Project>{419cbc13-5b6e-4889-af22-4ca292f0304c}</Project>
+      <Name>RL.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

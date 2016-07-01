@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Panel.cs" />
     <Compile Include="TextEdit.cs" />
     <Compile Include="Widget.cs" />
