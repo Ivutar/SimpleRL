@@ -15,6 +15,22 @@ E3 - UI examples
 
 E1M1 - Hello world  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513381/5d0f37c4-3f75-11e6-9e4a-0b95442d4cd2.png)
+
+You can control console window via static members of **Util** class:  
+
+    Util.Title = "E1M1 - Hello world";
+    Util.Width = 80;
+    Util.Height = 25;
+    Util.CursorVisible = false;
+
+For to control console's content you must use **Util.Buffer**:
+
+    Util.Buffer.Clear();
+    Util.Buffer.Write(0, 0, "Hello world");
+
+This library uses buffering, so after **Util.Buffer** was filled you must call **Util.Swap()** method:
+
+    Util.Swap();
   
 E1M2  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513409/95c474d0-3f75-11e6-957a-a0704232afc0.png)
