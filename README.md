@@ -25,6 +25,8 @@ All example projects use E?M? naming. Here E? - group and M? - project number in
  * [E3M2 - Panel Example](#e3m2---panel-example)
  * [E3M3 - Colored string](#e3m3---colored-string)
  * [E3M4 - Menu](#e3m4---menu)
+* E4 - UTILS
+ * [E4M1 - Cellular cave generation](#e4m1---cellular-cave-generation)
   
 ### E1 - BASE EXAMPLES
 
@@ -168,3 +170,7 @@ first line:
 #### E3M4 - Menu  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513634/53686a40-3f77-11e6-8153-44b4384ccfeb.png)
   
+### E3 - UI EXAMPLES  
+  
+#### E4M1 - Cellular cave generation  
+todo  
