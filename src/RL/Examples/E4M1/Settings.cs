@@ -9,30 +9,33 @@ namespace E4M1
 {
     public class Settings : Panel
     {
-        TextEdit MapWidth;
-        TextEdit MapHeight;
-        TextEdit FillPercentage;
-        TextEdit WallNeighbours;
-        TextEdit PassNeighbours;
-        TextEdit Steps;
-        TextEdit Seed;
+        Random rnd = new Random();
+
+        public TextEdit MapWidth;
+        public TextEdit MapHeight;
+        public TextEdit FillPercentage;
+        public TextEdit WallNeighbours;
+        public TextEdit PassNeighbours;
+        public TextEdit Steps;
+        public TextEdit Seed;
 
         Dictionary<string, ColorInfo> decor;
 
         public Action<Panel> OnGenerate;
+        public Action<Panel> OnSave;
 
         public Settings (int width, int height): base(width, height)
         {
             decor = new Dictionary<string, ColorInfo> ();
             decor["key"]  = new ColorInfo { Fore = Color.LightGreen, Back = Color.Teal };
 
-            MapWidth       = new TextEdit(width - 2) { Left = 1, Top = 2 + 3 * 0, Text = "200" };
-            MapHeight      = new TextEdit(width - 2) { Left = 1, Top = 2 + 3 * 1, Text = "200" };
-            FillPercentage = new TextEdit(width - 2) { Left = 1, Top = 2 + 3 * 2, Text = "0.4" };
-            WallNeighbours = new TextEdit(width - 2) { Left = 1, Top = 2 + 3 * 3, Text = "5" };
-            PassNeighbours = new TextEdit(width - 2) { Left = 1, Top = 2 + 3 * 4, Text = "3" };
-            Steps          = new TextEdit(width - 2) { Left = 1, Top = 2 + 3 * 5, Text = "2" };
-            Seed           = new TextEdit(width - 2) { Left = 1, Top = 2 + 3 * 6, Text = "" };
+            MapWidth       = new TextEdit(width - 2) { Left = 1, Top = 1 + 3 * 0, Text = "200" };
+            MapHeight      = new TextEdit(width - 2) { Left = 1, Top = 1 + 3 * 1, Text = "200" };
+            FillPercentage = new TextEdit(width - 2) { Left = 1, Top = 1 + 3 * 2, Text = "0.4" };
+            WallNeighbours = new TextEdit(width - 2) { Left = 1, Top = 1 + 3 * 3, Text = "5" };
+            PassNeighbours = new TextEdit(width - 2) { Left = 1, Top = 1 + 3 * 4, Text = "3" };
+            Steps          = new TextEdit(width - 2) { Left = 1, Top = 1 + 3 * 5, Text = "10" };
+            Seed           = new TextEdit(width - 2) { Left = 1, Top = 1 + 3 * 6, Text = "" };
 
             Widgets.Add(MapWidth);
             Widgets.Add(MapHeight);
@@ -65,11 +68,22 @@ namespace E4M1
 
         public override bool Input(Event e)
         {
-            if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.Spacebar)
+            if (e.Kind == EventKind.Key && e.Key.Press)
             {
-                if (OnGenerate != null)
-                    OnGenerate(this);
-                return true;
+                if (e.Key.Key == ConsoleKey.Spacebar)
+                {
+                    OnGenerate?.Invoke(this);
+                    return true;
+                }
+                else if (e.Key.Key == ConsoleKey.Enter)
+                {
+                    Seed.Text = rnd.Next().ToString();
+                    OnGenerate?.Invoke(this);
+                }
+                else if (e.Key.Key == ConsoleKey.F2)
+                {
+                    OnSave?.Invoke(this);
+                }
             }
 
             return base.Input(e);
@@ -82,17 +96,18 @@ namespace E4M1
             //texts
             Color f = Color.White;
             Color b = Color.Teal;
-            Write(1, 1 + 3 * 0, "Map width", f, b);
-            Write(1, 1 + 3 * 1, "Map Height", f, b);
-            Write(1, 1 + 3 * 2, "Fill precentage", f, b);
-            Write(1, 1 + 3 * 3, "Create wall", f, b);
-            Write(1, 1 + 3 * 4, "Remove wall", f, b);
-            Write(1, 1 + 3 * 5, "Smoth steps", f, b);
-            Write(1, 1 + 3 * 6, "Seed", f, b);
+            Write(1, 0 + 3 * 0, "Map width", f, b);
+            Write(1, 0 + 3 * 1, "Map Height", f, b);
+            Write(1, 0 + 3 * 2, "Fill precentage", f, b);
+            Write(1, 0 + 3 * 3, "Create wall", f, b);
+            Write(1, 0 + 3 * 4, "Remove wall", f, b);
+            Write(1, 0 + 3 * 5, "Smoth steps", f, b);
+            Write(1, 0 + 3 * 6, "Seed", f, b);
 
-            Write(1, 1 + 3 * 7 + 0, "{key}Space{/} - regenerate".Decorate(decor, f, b));
-            Write(1, 1 + 3 * 7 + 1, "{key}Esc{/} - exit".Decorate(decor, f, b));
-            Write(1, 1 + 3 * 7 + 2, "{key}LB{/}+{key}mouse{/} - scroll".Decorate(decor, f, b));
+            Write(1, 0 + 3 * 7 + 0, "{key}Enter{/} new seed".Decorate(decor, f, b));
+            Write(1, 0 + 3 * 7 + 1, "{key}Space{/} generate map".Decorate(decor, f, b));
+            Write(1, 0 + 3 * 7 + 2, "{key}Esc{/} exit   {key}F2{/} save".Decorate(decor, f, b));
+            Write(1, 0 + 3 * 7 + 3, "{key}LB{/}+{key}Mouse{/} scroll".Decorate(decor, f, b));
         }
     }
 }

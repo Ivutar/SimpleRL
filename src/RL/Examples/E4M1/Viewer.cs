@@ -41,6 +41,16 @@ namespace E4M1
                 {
                     DX += startx - e.Mouse.X;
                     DY += starty - e.Mouse.Y;
+
+                    if (DX < -1) DX = -1;
+                    if (DY < -1) DY = -1;
+
+                    if (DX > Content.Width - Width + 1) DX = Content.Width - Width + 1;
+                    if (DY > Content.Height - Height + 1) DY = Content.Height - Height + 1;
+
+                    if (Content.Width <= Width - 2) DX = -1;
+                    if (Content.Height <= Height - 2) DY = -1;
+
                     startx = e.Mouse.X;
                     starty = e.Mouse.Y;
                     Draw();
