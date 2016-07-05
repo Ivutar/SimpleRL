@@ -118,12 +118,14 @@ namespace RL
 
     public static class Events
     {
-        const int  STD_INPUT_HANDLE       = -10;
-        const int  KEY_EVENT              = 0x0001;
-        const int  MOUSE_EVENT            = 0x0002;
-        const int  ENABLE_MOUSE_INPUT     = 0x0010;
-        const uint ENABLE_QUICK_EDIT_MODE = 0x0040;
-        const int  ENABLE_EXTENDED_FLAGS  = 0x0080;
+        const int  STD_INPUT_HANDLE         = -10;
+        const int  KEY_EVENT                = 0x0001;
+        const int  MOUSE_EVENT              = 0x0002;
+        const int  WINDOW_BUFFER_SIZE_EVENT = 0x0004;
+        const int  MENU_EVENT               = 0x0008;
+        const int  ENABLE_MOUSE_INPUT       = 0x0010;
+        const uint ENABLE_QUICK_EDIT_MODE   = 0x0040;
+        const int  ENABLE_EXTENDED_FLAGS    = 0x0080;
 
         static List<Event> list = new List<Event>(100);
         static bool LeftButton = false;
@@ -190,6 +192,7 @@ namespace RL
                 else
                 {
                     WinCon.INPUT_RECORD ir = buff[0];
+                    //System.Diagnostics.Debug.WriteLine(ir.EventType.ToString());
 
                     //key
                     if (ir.EventType == KEY_EVENT)
@@ -259,6 +262,21 @@ namespace RL
 
                             list.Add(e);
                         }
+                    }
+
+                    //changed buffer size
+                    if (ir.EventType == WINDOW_BUFFER_SIZE_EVENT)
+                    {
+                        int width = ir.WindowBufferSizeEvent.dwSize.X;
+                        int height = ir.WindowBufferSizeEvent.dwSize.Y;
+                        //...
+                    }
+
+                    //menu event
+                    if (ir.EventType == MENU_EVENT)
+                    {
+                        uint cmd = ir.MenuEvent.dwCommandId;
+                        //...
                     }
                 }
             }

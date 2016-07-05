@@ -31,11 +31,19 @@ namespace E4M1
             Util.CursorVisible = false;
 
             CaveGenerator gen = new CaveGenerator(map_width, map_height, 0.4, 5, 3, smoth);
-            Settings settings = new Settings(left, screen_height);
+
             Viewer viewer = new Viewer(screen_width - left, screen_height) { DX = left };
             viewer.Content = new Canvas(map_width, map_height);
             Gen2Map(gen, viewer.Content);
 
+            Settings settings = new Settings(left, screen_height);
+            settings.OnGenerate = (panel) =>
+            {
+                gen.Seed = new Random().Next();
+                gen.Start(smoth);
+                Gen2Map(gen, viewer.Content);
+            };
+            
             while (true)
             {
                 //draw
@@ -48,17 +56,10 @@ namespace E4M1
                 //input
                 Event e = Events.GetNext(true);
                 viewer.Input(e);
+                settings.Input(e);
                 if (e.Kind == EventKind.Key && e.Key.Press)
-                {
                     if (e.Key.Key == ConsoleKey.Escape)
                         break;
-                    else
-                    {
-                        gen.Seed = new Random().Next();
-                        gen.Start(smoth);
-                        Gen2Map(gen, viewer.Content);
-                    }
-                }
             }
         }
     }
