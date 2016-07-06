@@ -34,7 +34,8 @@ namespace RL
                 else
                     current = value;
 
-                OnChange?.Invoke(this, Items[current], current);
+                if (OnChange != null)
+                    OnChange.Invoke(this, Items[current], current);
                 Draw();
             }
         }
@@ -64,7 +65,8 @@ namespace RL
 
             if (e.Key.Key == ConsoleKey.Enter)
             {
-                OnSelect?.Invoke(this, Items[Current], Current);
+                if (OnSelect != null)
+                    OnSelect.Invoke(this, Items[Current], Current);
                 return true;
             }
             else
@@ -80,12 +82,14 @@ namespace RL
                 if (e.Key.Key == dec)
                 {
                     Current = Current <= 0 ? Items.Count - 1 : Current - 1;
-                    OnChange?.Invoke(this, Items[Current], Current);
+                    if (OnChange != null)
+                        OnChange.Invoke(this, Items[Current], Current);
                 }
                 else if (e.Key.Key == inc)
                 {
                     Current = Current >= Items.Count - 1 ? 0 : Current + 1;
-                    OnChange?.Invoke(this, Items[Current], Current);
+                    if (OnChange != null)
+                        OnChange.Invoke(this, Items[Current], Current);
                 }
                 else
                     return false;

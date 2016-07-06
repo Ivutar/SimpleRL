@@ -72,17 +72,20 @@ namespace E4M1
             {
                 if (e.Key.Key == ConsoleKey.Spacebar)
                 {
-                    OnGenerate?.Invoke(this);
+                    if (OnGenerate != null)
+                        OnGenerate.Invoke(this);
                     return true;
                 }
                 else if (e.Key.Key == ConsoleKey.Enter)
                 {
                     Seed.Text = rnd.Next().ToString();
-                    OnGenerate?.Invoke(this);
+                    if (OnGenerate != null)
+                        OnGenerate.Invoke(this);
                 }
                 else if (e.Key.Key == ConsoleKey.F2)
                 {
-                    OnSave?.Invoke(this);
+                    if (OnSave != null)
+                        OnSave.Invoke(this);
                 }
             }
 
