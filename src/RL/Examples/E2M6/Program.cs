@@ -16,17 +16,11 @@ namespace E2M6
             Util.Height = 25;
             Util.CursorVisible = false;
 
-            while (true)
+            //main loop
+            while (Global.Play)
             {
-                //process input events
-                Event e = Events.GetNext(true);
-                if (e.Kind == EventKind.Key && e.Key.Key == ConsoleKey.Escape)
-                    break;
-
-                //update screen
-                Util.Buffer.Clear();
-                Util.Buffer.Write(0, 0, e.ToString());
-                Util.Swap();
+                Global.CurrentScreen.Draw();
+                Global.CurrentScreen.Input(Events.GetNext(true));
             }
         }
     }

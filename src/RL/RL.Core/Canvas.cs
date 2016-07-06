@@ -391,6 +391,21 @@ namespace RL
                 }
             }
         }
+        public void FillRectangle(int x1, int y1, int x2, int y2, CharInfo ci)
+        {
+            if (x1 > x2) { int t = x1; x1 = x2; x2 = t; }
+            if (y1 > y2) { int t = y1; y1 = y2; y2 = t; }
+            if (x1 < 0) x1 = 0;
+            if (y1 < 0) y1 = 0;
+            if (x2 >= Width) x2 = Width - 1;
+            if (y2 >= Height) y2 = Height - 1;
+            if (x1 >= Width || y1 >= Height || x2 < 0 || y2 < 0)
+                return;
+
+            for (int x = x1; x < x2; x++)
+                for (int y = y1; y < y2; y++)
+                    Util.Buffer[x, y] = ci;
+        }
 
         private static Color Char2Color(char c)
         {
