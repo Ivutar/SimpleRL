@@ -402,9 +402,9 @@ namespace RL
             if (x1 >= Width || y1 >= Height || x2 < 0 || y2 < 0)
                 return;
 
-            for (int x = x1; x < x2; x++)
-                for (int y = y1; y < y2; y++)
-                    Util.Buffer[x, y] = ci;
+            for (int x = x1; x <= x2; x++)
+                for (int y = y1; y <= y2; y++)
+                    this[x, y] = ci;
         }
 
         private static Color Char2Color(char c)

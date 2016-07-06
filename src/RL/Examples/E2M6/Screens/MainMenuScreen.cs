@@ -16,10 +16,11 @@ namespace E2M6.Screens
         {
             fone = Canvas.Load(@"..\..\fone.rl");
 
-            menu = new Menu(18, 4, new string[] {
-                "       New        ",
-                "       Load       ",
-                "       About      ",
+            menu = new Menu(18, 5, new string[] {
+                "  Start new game  ",
+                "     Load game    ",
+                "   Achievements   ",
+                "   Koboldopedia   ",
                 "       Exit       ",
             })
             {
@@ -27,7 +28,7 @@ namespace E2M6.Screens
                 Fore = Color.LightGray,
                 Back = Color.Black,
                 CurrentFore = Color.White,
-                CurrentBack = Color.Teal,
+                CurrentBack = Color.Black,
                 Left = (Util.Buffer.Width - 18) / 2,
                 Top = (Util.Buffer.Height - 4) / 2,
             };
@@ -35,22 +36,28 @@ namespace E2M6.Screens
             menu.OnSelect = (sender, text, index) => {
                 if (index == 0)
                 {
-                    //new
-                    //...
+                    //Start new game
+                    //... reset new game screen
+                    Global.CurrentScreen = Global.NewGame;
                 }
                 else if (index == 1)
                 {
-                    //load
-                    //...
+                    //Load game
+                    Global.CurrentScreen = Global.Load;
                 }
                 else if (index == 2)
                 {
-                    //about
-                    //...
+                    //Achievements
+                    Global.CurrentScreen = Global.Achievements;
                 }
                 else if (index == 3)
                 {
-                    //exit
+                    //Koboldopedia
+                    Global.CurrentScreen = Global.Koboldopedia;
+                }
+                else if (index == 4)
+                {
+                    //Exit
                     Global.Play = false;
                 }
             };
@@ -58,7 +65,10 @@ namespace E2M6.Screens
 
         public override void Input(RL.Event e)
         {
-            menu.Input(e);
+            if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.Escape)
+                Global.Play = false;
+            else
+                menu.Input(e);
         }
 
         public override void Draw()
@@ -70,8 +80,8 @@ namespace E2M6.Screens
             int titley = menuy - 2;
             int x1 = Math.Min(titlex, menux) - 1;
             int y1 = titley - 1;
-            int x2 = Math.Max(titlex + title.Length, menux + menu.Width) + 1;
-            int y2 = menuy + menu.Height + 1;
+            int x2 = Math.Max(titlex + title.Length, menux + menu.Width);
+            int y2 = menuy + menu.Height;
 
             Util.Buffer.Clear();
 
@@ -83,8 +93,14 @@ namespace E2M6.Screens
             menu.Draw();
             Util.Buffer.Copy(menu, menux, menuy);
 
-            //decor
+            //title
             Util.Buffer.Write(titlex, titley, title);
+
+            //help
+            CharInfo[] help = " {key}ESC{/}: quit   {key}↑↓{/}: change   {key}Enter{/}: select ".Decorate(Global.decor, Color.LightGray, Color.Black);
+            int helpx = (Util.Buffer.Width - help.Length) / 2;
+            int helpy = Util.Buffer.Height - 2;
+            Util.Buffer.Write(helpx, helpy, help);
 
             Util.Swap();
         }

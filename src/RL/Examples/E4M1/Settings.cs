@@ -109,7 +109,7 @@ namespace E4M1
 
             Write(1, 0 + 3 * 7 + 0, "{key}Enter{/} new seed".Decorate(decor, f, b));
             Write(1, 0 + 3 * 7 + 1, "{key}Space{/} generate map".Decorate(decor, f, b));
-            Write(1, 0 + 3 * 7 + 2, "{key}Esc{/} exit   {key}F2{/} save".Decorate(decor, f, b));
+            Write(1, 0 + 3 * 7 + 2, "{key}ESC{/} exit   {key}F2{/} save".Decorate(decor, f, b));
             Write(1, 0 + 3 * 7 + 3, "{key}LB{/}+{key}Mouse{/} scroll".Decorate(decor, f, b));
         }
     }

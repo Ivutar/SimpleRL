@@ -14,6 +14,10 @@ namespace E2M6
         public static Dictionary<string, ColorInfo> decor;
 
         public static MainMenuScreen MainMenu;
+        public static NewGameScreen NewGame;
+        public static LoadScreen Load;
+        public static AchievementsScreen Achievements;
+        public static KoboldopediaScreen Koboldopedia;
         public static ExploreScreen Explore;
         public static Screen CurrentScreen;
 
@@ -22,10 +26,15 @@ namespace E2M6
         static Global()
         {
             decor = new Dictionary<string, ColorInfo>();
-            decor["title"] = new ColorInfo { Fore = Color.LightGreen };
+            decor["title"] = new ColorInfo { Fore = Color.LightRed };
+            decor["key"] = new ColorInfo { Fore = Color.LightGreen };
 
             //screens setup
             MainMenu = new MainMenuScreen();
+            NewGame = new NewGameScreen();
+            Load = new LoadScreen();
+            Achievements = new AchievementsScreen();
+            Koboldopedia = new KoboldopediaScreen();
             Explore = new ExploreScreen();
             CurrentScreen = MainMenu;
 

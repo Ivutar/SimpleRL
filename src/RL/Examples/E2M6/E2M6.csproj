@@ -45,8 +45,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screen.cs" />
+    <Compile Include="Screens\AchievementsScreen.cs" />
+    <Compile Include="Screens\KoboldopediaScreen.cs" />
+    <Compile Include="Screens\LoadScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\ExploreScreen.cs" />
+    <Compile Include="Screens\NewGameScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
