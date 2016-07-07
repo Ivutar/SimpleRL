@@ -20,6 +20,7 @@ All example projects use E?M? naming. Here E? - group and M? - project number in
  * [E2M3 - Extended maze game](#e2m3---extended-maze-game)
  * [E2M4 - 3D Maze](#e2m4---3d-maze)
  * [E2M5 - FOV](#e2m5---fov)
+ * [E2M6 - Kobolds Cave](#e2m5---kobolds-cave)
 * [E3 - UI EXAMPLES](#e3---ui-examples)
  * [E3M1 - Simple UI with textboxes](#e3m1---simple-ui-with-textboxes)
  * [E3M2 - Panel Example](#e3m2---panel-example)
@@ -155,6 +156,9 @@ first line:
   
 #### E2M5 - FOV  
 ![image](https://cloud.githubusercontent.com/assets/1793147/16513582/e9d47a1a-3f76-11e6-914d-627d0d458154.png)
+  
+#### E2M6 - Kobolds Cave  
+![image](https://cloud.githubusercontent.com/assets/1793147/16666755/178a7fcc-449a-11e6-8597-97b0c45448d1.png)  
   
 ### E3 - UI EXAMPLES
   
