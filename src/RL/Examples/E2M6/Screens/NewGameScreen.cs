@@ -63,10 +63,12 @@ namespace E2M6.Screens
                 {
                     Global.CurrentScreen = Global.MainMenu;
                 }
-                else if (e.Key.Key == ConsoleKey.Enter)
+                else if (e.Key.Key == ConsoleKey.Enter) 
                 {
-                    //... init new game
+                    //start new game
+                    Global.StartNewGame(cave_size_menu.Current, popuplation_menu.Current, level_menu.Current, class_menu.Current);
                     Global.CurrentScreen = Global.Explore;
+                    Global.Explore.UpdateView(); //center view on hero
                 }
                 else if (e.Key.Key == ConsoleKey.UpArrow)
                 {
