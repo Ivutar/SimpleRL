@@ -27,6 +27,8 @@ namespace E2M6
         public static LoadScreen Load;
         public static AchievementsScreen Achievements;
         public static KoboldopediaScreen Koboldopedia;
+        public static HighscoresScreen Highscores;
+        public static SettingsScreen Settings;
         public static ExploreScreen Explore;
         public static Screen CurrentScreen;
 
@@ -48,6 +50,8 @@ namespace E2M6
             Achievements = new AchievementsScreen();
             Koboldopedia = new KoboldopediaScreen();
             Explore = new ExploreScreen();
+            Highscores = new HighscoresScreen();
+            Settings = new SettingsScreen();
             CurrentScreen = MainMenu;
 
             //enable main loop

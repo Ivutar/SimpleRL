@@ -16,11 +16,13 @@ namespace E2M6.Screens
         {
             fone = Canvas.Load(@"..\..\fone.rl");
 
-            menu = new Menu(18, 5, new string[] {
+            menu = new Menu(18, 7, new string[] {
                 "  Start new game  ",
                 "     Load game    ",
                 "   Achievements   ",
                 "   Koboldopedia   ",
+                "    Highscores    ",
+                "     Settings     ",
                 "       Exit       ",
             })
             {
@@ -56,6 +58,16 @@ namespace E2M6.Screens
                     Global.CurrentScreen = Global.Koboldopedia;
                 }
                 else if (index == 4)
+                {
+                    //highscores
+                    Global.CurrentScreen = Global.Highscores;
+                }
+                else if (index == 5)
+                {
+                    //settings
+                    Global.CurrentScreen = Global.Settings;
+                }
+                else if (index == 6)
                 {
                     //Exit
                     Global.Play = false;
