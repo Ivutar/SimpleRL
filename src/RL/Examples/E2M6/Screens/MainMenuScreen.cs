@@ -40,37 +40,37 @@ namespace E2M6.Screens
                 {
                     //Start new game
                     //... reset new game screen
-                    Global.CurrentScreen = Global.NewGame;
+                    Global.Sys.CurrentScreen = Global.Sys.NewGame;
                 }
                 else if (index == 1)
                 {
                     //Load game
-                    Global.CurrentScreen = Global.Load;
+                    Global.Sys.CurrentScreen = Global.Sys.Load;
                 }
                 else if (index == 2)
                 {
                     //Achievements
-                    Global.CurrentScreen = Global.Achievements;
+                    Global.Sys.CurrentScreen = Global.Sys.Achievements;
                 }
                 else if (index == 3)
                 {
                     //Koboldopedia
-                    Global.CurrentScreen = Global.Koboldopedia;
+                    Global.Sys.CurrentScreen = Global.Sys.Koboldopedia;
                 }
                 else if (index == 4)
                 {
                     //highscores
-                    Global.CurrentScreen = Global.Highscores;
+                    Global.Sys.CurrentScreen = Global.Sys.Highscores;
                 }
                 else if (index == 5)
                 {
                     //settings
-                    Global.CurrentScreen = Global.Settings;
+                    Global.Sys.CurrentScreen = Global.Sys.Settings;
                 }
                 else if (index == 6)
                 {
                     //Exit
-                    Global.Play = false;
+                    Global.Sys.Play = false;
                 }
             };
         }
@@ -78,14 +78,14 @@ namespace E2M6.Screens
         public override void Input(RL.Event e)
         {
             if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.Escape)
-                Global.Play = false;
+                Global.Sys.Play = false;
             else
                 menu.Input(e);
         }
 
         public override void Draw()
         {
-            CharInfo[] title = "{title}Kobolds Cave{/title}".Decorate(Global.decor, Color.White, Color.Black);
+            CharInfo[] title = "{title}Kobolds Cave{/title}".Decorate(Global.Sys.decor, Color.White, Color.Black);
             int menux = menu.Left;
             int menuy = menu.Top;
             int titlex = (Util.Buffer.Width - title.Length) / 2;
@@ -109,7 +109,7 @@ namespace E2M6.Screens
             Util.Buffer.Write(titlex, titley, title);
 
             //help
-            CharInfo[] help = " {key}ESC{/}: quit   {key}↑↓{/}: change   {key}Enter{/}: select ".Decorate(Global.decor, Color.LightGray, Color.Black);
+            CharInfo[] help = " {key}ESC{/}: quit   {key}↑↓{/}: change   {key}Enter{/}: select ".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
             int helpx = (Util.Buffer.Width - help.Length) / 2;
             int helpy = Util.Buffer.Height - 2;
             Util.Buffer.Write(helpx, helpy, help);

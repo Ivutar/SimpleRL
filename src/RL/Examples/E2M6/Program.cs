@@ -17,10 +17,10 @@ namespace E2M6
             Util.CursorVisible = false;
 
             //main loop
-            while (Global.Play)
+            while (Global.Sys.Play)
             {
-                Global.CurrentScreen.Draw();
-                Global.CurrentScreen.Input(Events.GetNext(true));
+                Global.Sys.CurrentScreen.Draw();
+                Global.Sys.CurrentScreen.Input(Events.GetNext(true));
             }
         }
     }

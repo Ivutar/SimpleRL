@@ -20,15 +20,15 @@ namespace E2M6.Screens
         {
             if (e.Kind == EventKind.Key && e.Key.Press)
             {
-                if (e.Key.Key == ConsoleKey.Escape) Global.CurrentScreen = Global.MainMenu;
-                else if (Global.Control.MoveToLeft     (e.Key.Key)) Move(-1,  0);
-                else if (Global.Control.MoveToRight    (e.Key.Key)) Move(+1,  0);
-                else if (Global.Control.MoveToUp       (e.Key.Key)) Move( 0, -1);
-                else if (Global.Control.MoveToDown     (e.Key.Key)) Move( 0, +1);
-                else if (Global.Control.MoveToLeftUp   (e.Key.Key)) Move(-1, -1);
-                else if (Global.Control.MoveToRightUp  (e.Key.Key)) Move(+1, -1);
-                else if (Global.Control.MoveToLeftDown (e.Key.Key)) Move(-1, +1);
-                else if (Global.Control.MoveToRightDown(e.Key.Key)) Move(+1, +1);
+                if (e.Key.Key == ConsoleKey.Escape) Global.Sys.CurrentScreen = Global.Sys.MainMenu;
+                else if (Global.Sys.Control.MoveToLeft     (e.Key.Key)) Move(-1,  0);
+                else if (Global.Sys.Control.MoveToRight    (e.Key.Key)) Move(+1,  0);
+                else if (Global.Sys.Control.MoveToUp       (e.Key.Key)) Move( 0, -1);
+                else if (Global.Sys.Control.MoveToDown     (e.Key.Key)) Move( 0, +1);
+                else if (Global.Sys.Control.MoveToLeftUp   (e.Key.Key)) Move(-1, -1);
+                else if (Global.Sys.Control.MoveToRightUp  (e.Key.Key)) Move(+1, -1);
+                else if (Global.Sys.Control.MoveToLeftDown (e.Key.Key)) Move(-1, +1);
+                else if (Global.Sys.Control.MoveToRightDown(e.Key.Key)) Move(+1, +1);
             }
         }
 
@@ -40,7 +40,7 @@ namespace E2M6.Screens
             for (int x = 0; x<Util.Buffer.Width; x++)
                 for (int y = 0; y < Util.Buffer.Height; y++)
                 {
-                    Cell cell = Global.Cave[x + viewx, y + viewy];
+                    Cell cell = Global.Game.Cave[x + viewx, y + viewy];
                     Color f = Color.Black;
                     Color b = Color.Black;
                     string ch = " ";
@@ -59,21 +59,21 @@ namespace E2M6.Screens
             //...
 
             //draw hero
-            Util.Buffer.Write(Global.Hero.X - viewx, Global.Hero.Y - viewy, "@", Color.LightRed, Color.Black);
+            Util.Buffer.Write(Global.Game.Hero.X - viewx, Global.Game.Hero.Y - viewy, "@", Color.LightRed, Color.Black);
 
             Util.Swap();
         }
 
         void Move (int dx, int dy)
         {
-            Global.MoveHero(dx, dy);
+            Global.Game.MoveHero(dx, dy);
             UpdateView();
         }
 
         public void UpdateView()
         {
-            viewx = FitView(Global.Hero.X, Util.Buffer.Width, Global.Cave.Width);
-            viewy = FitView(Global.Hero.Y, Util.Buffer.Height, Global.Cave.Height);
+            viewx = FitView(Global.Game.Hero.X, Util.Buffer.Width, Global.Game.Cave.Width);
+            viewy = FitView(Global.Game.Hero.Y, Util.Buffer.Height, Global.Game.Cave.Height);
         }
 
         int FitView (int p, int s, int m)

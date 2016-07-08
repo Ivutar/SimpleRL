@@ -9,6 +9,10 @@ namespace E2M6.Screens
 {
     class SettingsScreen : Screen
     {
+        //system (console size, colors, formats and etc)
+        //controls
+        //game
+
         public SettingsScreen()
         {
             //...
@@ -20,7 +24,7 @@ namespace E2M6.Screens
             {
                 if (e.Key.Key == ConsoleKey.Escape)
                 {
-                    Global.CurrentScreen = Global.MainMenu;
+                    Global.Sys.CurrentScreen = Global.Sys.MainMenu;
                 }
                 //...
             }
@@ -33,7 +37,7 @@ namespace E2M6.Screens
             //...
 
             //help
-            CharInfo[] help = "{key}ESC{/}: main menu".Decorate(Global.decor, Color.LightGray, Color.Black);
+            CharInfo[] help = "{key}ESC{/}: main menu".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
             int helpx = (Util.Buffer.Width - help.Length) / 2;
             int helpy = Util.Buffer.Height - 2;
             Util.Buffer.Write(helpx, helpy, help);

@@ -61,14 +61,14 @@ namespace E2M6.Screens
             {
                 if (e.Key.Key == ConsoleKey.Escape)
                 {
-                    Global.CurrentScreen = Global.MainMenu;
+                    Global.Sys.CurrentScreen = Global.Sys.MainMenu;
                 }
                 else if (e.Key.Key == ConsoleKey.Enter) 
                 {
                     //start new game
-                    Global.StartNewGame(cave_size_menu.Current, popuplation_menu.Current, level_menu.Current, class_menu.Current);
-                    Global.CurrentScreen = Global.Explore;
-                    Global.Explore.UpdateView(); //center view on hero
+                    Global.Game.StartNewGame(cave_size_menu.Current, popuplation_menu.Current, level_menu.Current, class_menu.Current);
+                    Global.Sys.CurrentScreen = Global.Sys.Explore;
+                    Global.Sys.Explore.UpdateView(); //center view on hero
                 }
                 else if (e.Key.Key == ConsoleKey.UpArrow)
                 {
@@ -113,7 +113,7 @@ namespace E2M6.Screens
             Util.Buffer.Copy(class_menu,       left, top + 4 * 3);
 
             //help
-            CharInfo[] help = "{key}ESC{/}: main menu   {key}←↑↓→{/}: change   {key}Enter{/}: start new game".Decorate(Global.decor, Color.LightGray, Color.Black);
+            CharInfo[] help = "{key}ESC{/}: main menu   {key}←↑↓→{/}: change   {key}Enter{/}: start new game".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
             int helpx = (Util.Buffer.Width - help.Length) / 2;
             int helpy = Util.Buffer.Height - 2;
             Util.Buffer.Write(helpx, helpy, help);

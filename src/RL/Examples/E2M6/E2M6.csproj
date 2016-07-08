@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CaveGenerator.cs" />
     <Compile Include="ControlManager.cs" />
+    <Compile Include="GameData.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Screens\ExploreScreen.cs" />
     <Compile Include="Screens\NewGameScreen.cs" />
     <Compile Include="Screens\SettingsScreen.cs" />
+    <Compile Include="SysData.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
