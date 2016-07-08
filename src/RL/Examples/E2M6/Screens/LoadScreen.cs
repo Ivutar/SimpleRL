@@ -7,9 +7,9 @@ using RL;
 
 namespace E2M6.Screens
 {
-    class LoadScreen : Screen
+    class ContinueScreen : Screen
     {
-        public LoadScreen()
+        public ContinueScreen()
         {
             //...
         }
@@ -29,6 +29,12 @@ namespace E2M6.Screens
         public override void Draw()
         {
             Util.Buffer.Clear();
+
+            //title
+            CharInfo[] title = "{title}Continue playing{/}".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
+            int titlex = (Util.Buffer.Width - title.Length) / 2;
+            int titley = 1;
+            Util.Buffer.Write(titlex, titley, title);
 
             //...
 

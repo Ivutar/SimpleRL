@@ -18,7 +18,7 @@ namespace E2M6.Screens
 
             menu = new Menu(18, 7, new string[] {
                 "  Start new game  ",
-                "     Load game    ",
+                " Continue playing ",
                 "   Achievements   ",
                 "   Koboldopedia   ",
                 "    Highscores    ",
@@ -45,7 +45,7 @@ namespace E2M6.Screens
                 else if (index == 1)
                 {
                     //Load game
-                    Global.Sys.CurrentScreen = Global.Sys.Load;
+                    Global.Sys.CurrentScreen = Global.Sys.Continue;
                 }
                 else if (index == 2)
                 {

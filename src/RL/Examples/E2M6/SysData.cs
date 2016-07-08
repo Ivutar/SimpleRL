@@ -16,7 +16,7 @@ namespace E2M6
 
         public MainMenuScreen MainMenu;
         public NewGameScreen NewGame;
-        public LoadScreen Load;
+        public ContinueScreen Continue;
         public AchievementsScreen Achievements;
         public KoboldopediaScreen Koboldopedia;
         public HighscoresScreen Highscores;
@@ -37,7 +37,7 @@ namespace E2M6
             //screens setup
             MainMenu = new MainMenuScreen();
             NewGame = new NewGameScreen();
-            Load = new LoadScreen();
+            Continue = new ContinueScreen();
             Achievements = new AchievementsScreen();
             Koboldopedia = new KoboldopediaScreen();
             Explore = new ExploreScreen();

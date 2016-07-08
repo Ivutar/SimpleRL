@@ -568,7 +568,7 @@ namespace RL
             WinCon.WriteConsoleOutput(handle, buf, size, coord, ref rc);
         }
 
-        #region [ Read from config ]
+        #region [ Work with config ]
 
         //read from config (bool)
         public static bool ReadConfigBool(string key, bool dflt = false)
@@ -641,6 +641,15 @@ namespace RL
                 val = dflt;
 
             return val;
+        }
+
+        public static void UpdateAppSettings(string theKey, string theValue)
+        {
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (ConfigurationManager.AppSettings.AllKeys.Contains(theKey))
+                configuration.AppSettings.Settings[theKey].Value = theValue;
+            configuration.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         #endregion

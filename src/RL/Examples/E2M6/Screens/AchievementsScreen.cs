@@ -30,6 +30,12 @@ namespace E2M6.Screens
         {
             Util.Buffer.Clear();
 
+            //title
+            CharInfo[] title = "{title}Achievements{/}".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
+            int titlex = (Util.Buffer.Width - title.Length) / 2;
+            int titley = 1;
+            Util.Buffer.Write(titlex, titley, title);
+
             //...
 
             //help
