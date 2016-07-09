@@ -45,8 +45,9 @@ namespace E2M6.Screens
                     Color b = Color.Black;
                     string ch = " ";
 
-                    if (cell.Kind == CellKind.Empty)     ch = ".";
-                    else if (cell.Kind == CellKind.Wall) ch = "#";
+                    if (cell.Fungus > 0)                  ch = "\"";
+                    else if (cell.Kind == CellKind.Empty) ch = ".";
+                    else if (cell.Kind == CellKind.Wall)  ch = "#";
 
                     if (!cell.Explored) f = Color.Black;        //unexplored
                     else if (cell.Visible) f = Color.LightGray; //visible

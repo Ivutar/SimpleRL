@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RL;
 using RL.FOV;
 
 namespace E2M6
@@ -19,6 +20,12 @@ namespace E2M6
         public CellKind Kind;
         public bool Explored;
         public bool Visible;
+
+        public CharInfo Memorized; //todo: 
+
+        //vegetation
+        public double Dung;
+        public double Fungus;
     }
 
     class World
