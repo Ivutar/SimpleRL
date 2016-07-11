@@ -63,7 +63,7 @@ namespace E2M6.Screens
             Util.Buffer.Clear();
 
             //title
-            CharInfo[] title = "{title}Settings{/}".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
+            CharInfo[] title = "{title}Settings{/}".Decorate(Global.decor, Color.LightGray, Color.Black);
             int titlex = (Util.Buffer.Width - title.Length) / 2;
             int titley = 1;
             Util.Buffer.Write(titlex, titley, title);
@@ -77,7 +77,7 @@ namespace E2M6.Screens
             //...
 
             //help
-            CharInfo[] help = "{key}ESC{/}: abort changes   {key}←↑↓→{/}: change   {key}Enter{/}: accept changes".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
+            CharInfo[] help = "{key}ESC{/}: abort changes   {key}←↑↓→{/}: change   {key}Enter{/}: accept changes".Decorate(Global.decor, Color.LightGray, Color.Black);
             int helpx = (Util.Buffer.Width - help.Length) / 2;
             int helpy = Util.Buffer.Height - 2;
             Util.Buffer.Write(helpx, helpy, help);

@@ -92,7 +92,7 @@ namespace E2M6.Screens
             Util.Buffer.Clear();
 
             //title
-            CharInfo[] title = "{title}Start new game{/}".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
+            CharInfo[] title = "{title}Start new game{/}".Decorate(Global.decor, Color.LightGray, Color.Black);
             int titlex = (Util.Buffer.Width - title.Length) / 2;
             int titley = 1;
             Util.Buffer.Write(titlex, titley, title);
@@ -118,7 +118,7 @@ namespace E2M6.Screens
             Util.Buffer.Copy(class_menu,       left, top + 4 * 3);
 
             //help
-            CharInfo[] help = "{key}ESC{/}: main menu   {key}←↑↓→{/}: change   {key}Enter{/}: start new game".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
+            CharInfo[] help = "{key}ESC{/}: main menu   {key}←↑↓→{/}: change   {key}Enter{/}: start new game".Decorate(Global.decor, Color.LightGray, Color.Black);
             int helpx = (Util.Buffer.Width - help.Length) / 2;
             int helpy = Util.Buffer.Height - 2;
             Util.Buffer.Write(helpx, helpy, help);

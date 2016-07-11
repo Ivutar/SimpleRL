@@ -13,9 +13,6 @@ namespace E2M6
         //controls
         public ControlManager Control;
 
-        //colored string decoration
-        public Dictionary<string, ColorInfo> decor;
-
         //screens
         public MainMenuScreen MainMenu;
         public NewGameScreen NewGame;
@@ -32,10 +29,6 @@ namespace E2M6
 
         public SysData ()
         {
-            decor = new Dictionary<string, ColorInfo>();
-            decor["title"] = new ColorInfo { Fore = Color.LightRed };
-            decor["key"] = new ColorInfo { Fore = Color.LightGreen };
-
             Control = new ControlManager();
 
             //screens setup

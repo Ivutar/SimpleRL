@@ -85,7 +85,7 @@ namespace E2M6.Screens
 
         public override void Draw()
         {
-            CharInfo[] title = "{title}Kobolds Cave{/title}".Decorate(Global.Sys.decor, Color.White, Color.Black);
+            CharInfo[] title = "{title}Kobolds Cave{/title}".Decorate(Global.decor, Color.White, Color.Black);
             int menux = menu.Left;
             int menuy = menu.Top;
             int titlex = (Util.Buffer.Width - title.Length) / 2;
@@ -109,7 +109,7 @@ namespace E2M6.Screens
             Util.Buffer.Write(titlex, titley, title);
 
             //help
-            CharInfo[] help = " {key}ESC{/}: quit   {key}↑↓{/}: change   {key}Enter{/}: select ".Decorate(Global.Sys.decor, Color.LightGray, Color.Black);
+            CharInfo[] help = " {key}ESC{/}: quit   {key}↑↓{/}: change   {key}Enter{/}: select ".Decorate(Global.decor, Color.LightGray, Color.Black);
             int helpx = (Util.Buffer.Width - help.Length) / 2;
             int helpy = Util.Buffer.Height - 2;
             Util.Buffer.Write(helpx, helpy, help);

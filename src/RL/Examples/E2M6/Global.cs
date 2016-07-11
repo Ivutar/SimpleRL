@@ -10,7 +10,11 @@ namespace E2M6
 {
     static class Global
     {
+        //global vars
         public static Random rnd;
+        public static Dictionary<string, ColorInfo> decor; //colored string decoration
+
+        //grouped data containers
         public static GameData Game;
         public static SysData Sys;
         public static CfgData Cfg;
@@ -18,6 +22,10 @@ namespace E2M6
         static Global()
         {
             rnd = new Random();
+            decor = new Dictionary<string, ColorInfo>();
+            decor["title"] = new ColorInfo { Fore = Color.LightRed };
+            decor["key"] = new ColorInfo { Fore = Color.LightGreen };
+
             Game = new GameData();
             Sys = new SysData();
             Cfg = new CfgData();
