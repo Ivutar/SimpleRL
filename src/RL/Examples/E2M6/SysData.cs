@@ -10,10 +10,13 @@ namespace E2M6
 {
     class SysData
     {
+        //controls
         public ControlManager Control;
 
+        //colored string decoration
         public Dictionary<string, ColorInfo> decor;
 
+        //screens
         public MainMenuScreen MainMenu;
         public NewGameScreen NewGame;
         public ContinueScreen Continue;
@@ -24,6 +27,7 @@ namespace E2M6
         public ExploreScreen Explore;
         public Screen CurrentScreen;
 
+        //main loop
         public bool Play { get; set; }
 
         public SysData ()

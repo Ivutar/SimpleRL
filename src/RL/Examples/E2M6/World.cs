@@ -21,11 +21,12 @@ namespace E2M6
         public bool Explored;
         public bool Visible;
 
-        public CharInfo Memorized; //todo: 
+        public CharInfo Memorized;
 
-        //vegetation
-        public double Dung;
+        //fungus
+        public double Toxic;
         public double Fungus;
+        public bool Spores;
     }
 
     class World
@@ -33,7 +34,7 @@ namespace E2M6
         //data
         IFOV fov;
         Random rnd = new Random();
-        Cell default_cell = new Cell() { Kind = CellKind.Wall, Explored = false, Visible = false };
+        Cell default_cell = new Cell() { Kind = CellKind.Wall, Explored = false, Visible = false, Memorized = new CharInfo(' ', Color.White, Color.Black) };
         Cell[,] cells;
 
         //properties
@@ -129,7 +130,10 @@ namespace E2M6
             CaveGenerator generator = new CaveGenerator(width, height, 0.4, 5, 3, 10);
             for (int x = 0; x < width; x++)
                 for (int y = 0; y < height; y++)
+                {
                     world.cells[x, y].Kind = generator[x, y] == 0 ? CellKind.Empty : CellKind.Wall;
+                    world.cells[x, y].Memorized = new CharInfo(' ', Color.White, Color.Black);
+                }
 
             return world;
         }

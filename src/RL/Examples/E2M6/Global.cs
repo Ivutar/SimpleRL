@@ -13,12 +13,14 @@ namespace E2M6
         public static Random rnd;
         public static GameData Game;
         public static SysData Sys;
+        public static CfgData Cfg;
 
         static Global()
         {
             rnd = new Random();
             Game = new GameData();
             Sys = new SysData();
+            Cfg = new CfgData();
         }
     }
 }

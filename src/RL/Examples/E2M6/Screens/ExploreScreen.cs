@@ -37,23 +37,12 @@ namespace E2M6.Screens
             Util.Buffer.Clear();
             
             //draw cave
+            CharInfo[] ch = new CharInfo[1];
             for (int x = 0; x<Util.Buffer.Width; x++)
                 for (int y = 0; y < Util.Buffer.Height; y++)
                 {
-                    Cell cell = Global.Game.Cave[x + viewx, y + viewy];
-                    Color f = Color.Black;
-                    Color b = Color.Black;
-                    string ch = " ";
-
-                    if (cell.Fungus > 0)                  ch = "\"";
-                    else if (cell.Kind == CellKind.Empty) ch = ".";
-                    else if (cell.Kind == CellKind.Wall)  ch = "#";
-
-                    if (!cell.Explored) f = Color.Black;        //unexplored
-                    else if (cell.Visible) f = Color.LightGray; //visible
-                    else f = Color.DarkGray;                    //explored but not visible
-
-                    Util.Buffer.Write(x, y, ch, f, b);
+                    ch[0] = GetCellCharInfo(x + viewx, y + viewy);
+                    Util.Buffer.Write(x, y, ch);
                 }
 
             //draw monsters, items and etc
@@ -65,16 +54,54 @@ namespace E2M6.Screens
             Util.Swap();
         }
 
-        void Move (int dx, int dy)
-        {
-            Global.Game.MoveHero(dx, dy);
-            UpdateView();
-        }
-
         public void UpdateView()
         {
             viewx = FitView(Global.Game.Hero.X, Util.Buffer.Width, Global.Game.Cave.Width);
             viewy = FitView(Global.Game.Hero.Y, Util.Buffer.Height, Global.Game.Cave.Height);
+        }
+
+        CharInfo GetCellCharInfo(int x, int y)
+        {
+            CharInfo res = new CharInfo(); //default
+            Cell cell = Global.Game.Cave[x,y];
+
+            if (!Global.Cfg.ShowAll && !cell.Visible)
+            {
+                //unexplored or memorized
+                res = cell.Memorized;
+                res.fore = Color.DarkGray;
+                return res;
+            }
+            else
+            {
+                //base cell
+                if (cell.Kind == CellKind.Wall)       res = new CharInfo('#', Color.LightGray, Color.Black);
+                else if (cell.Kind == CellKind.Empty) res = new CharInfo('.', Color.LightGray, Color.Black);
+
+                //fungus
+                if (cell.Fungus > 0) res = new CharInfo('"', Color.Green, Color.Black);
+
+                //items
+                //...
+
+                //npc
+                //...
+
+                //memorize
+                if (!Global.Cfg.ShowAll)
+                {
+                    cell.Memorized = res;
+                    Global.Game.Cave[x, y] = cell;
+                }
+            }
+
+            return res;
+        }
+
+        void Move (int dx, int dy)
+        {
+            Global.Game.MoveHero(dx, dy);
+            UpdateView();
         }
 
         int FitView (int p, int s, int m)

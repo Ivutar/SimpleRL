@@ -27,7 +27,7 @@ namespace E2M6
                 for (int j = 0; j < Cave.Height; j++)
                 {
                     Cell cell = Cave[i, j];
-                    cell.Dung = Global.rnd.NextDouble() * 10;
+                    cell.Toxic = Global.rnd.NextDouble() * 10;
                     Cave[i, j] = cell;
                 }
 
@@ -77,9 +77,9 @@ namespace E2M6
                     if (Cave[i, j].Fungus > 0)
                     {
                         ChangeFungus(i, j, 1); // normal grow
-                        if (Cave[i,j].Dung > 0.1) //dung grow
+                        if (Cave[i,j].Toxic > 0.1) //dung grow
                         {
-                            double delta = Cave[i, j].Dung * 0.25;
+                            double delta = Cave[i, j].Toxic * 0.25;
                             ChangeDung(i, j, -delta);
                             ChangeFungus(i, j, +delta);
                         }
@@ -112,7 +112,7 @@ namespace E2M6
         void ChangeDung(int x, int y, double delta)
         {
             Cell cell = Cave[x, y];
-            cell.Dung += delta;
+            cell.Toxic += delta;
             Cave[x, y] = cell;
         }
     }

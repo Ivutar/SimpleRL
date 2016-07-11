@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaveGenerator.cs" />
+    <Compile Include="CfgData.cs" />
     <Compile Include="ControlManager.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="Global.cs" />
