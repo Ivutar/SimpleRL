@@ -16,29 +16,49 @@ namespace E2M6.Actors
             Actors = new List<Actor>();
         }
 
-        public void UpdateActors()
+        public void UpdateActor(Actor actor, double energy)
         {
-            if (Actors == null || Actors.Count <= 0)
+            //validate actor
+            if (Actors == null || Actors.Count <= 0 || actor == null || !Actors.Contains(actor))
                 return;
 
-            var actors = Actors.Where(a => a.Energy >= 1000).OrderByDescending(a => a.Energy);
-            if (actors.Count() > 0)
+            //actor must be on top
+            if (Actors.Where(a => a.Energy >= 1000).OrderByDescending(a => a.Energy).FirstOrDefault() != actor)
+                return;
+
+            UpdateEvent e = new UpdateEvent() { EnegryCost = energy, StopUpdating = false };
+            actor.Energy -= e.EnegryCost;
+        }
+
+        public void UpdateActors(Actor stopper)
+        {
+            if (Actors == null || Actors.Count <= 0 || stopper == null || !Actors.Contains(stopper))
+                return;
+
+            while (true)
             {
-                foreach(var a in actors)
+                var actors = Actors.Where(a => a.Energy >= 1000).OrderByDescending(a => a.Energy);
+                if (actors.Count() > 0)
                 {
-                    UpdateEvent e = new UpdateEvent() { EnegryCost = 1000, StopUpdating = false };
+                    foreach (var a in actors)
+                    {
+                        if (a == stopper)
+                            return;
 
-                    a.Update(ref e);
+                        UpdateEvent e = new UpdateEvent() { EnegryCost = 1000, StopUpdating = false };
 
-                    a.Energy -= e.EnegryCost;
-                    if (e.StopUpdating)
-                        break;
+                        a.Update(ref e);
+
+                        a.Energy -= e.EnegryCost;
+                        if (e.StopUpdating)
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                foreach (var a in Actors)
-                    a.Energy += a.Speed;
+                else
+                {
+                    foreach (var a in Actors)
+                        a.Energy += a.Speed;
+                }
             }
         }
     }

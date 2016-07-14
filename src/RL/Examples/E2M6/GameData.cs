@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using E2M6.Actors;
 
 namespace E2M6
 {
     class GameData
     {
         public World Cave;
-        public Player Hero;
+
+        public TimeSystem ActorUpdater;
+        public PlayerActor Hero;
+        public FungusActor Fungus;
 
         public GameData()
         {
@@ -48,8 +52,16 @@ namespace E2M6
 
             //setup hero
             Cave.GetRandomEmptyCell(out x, out y);
-            Hero = new Player() { X = x, Y = y, Health = 100, ViewRadius = 10 };
+            Hero = new PlayerActor() { X = x, Y = y, Health = 100, ViewRadius = 10, Energy = 0, Speed = 100 };
             Cave.UpdateVisibility(Hero.X, Hero.Y, Hero.ViewRadius);
+
+            //setup fungus
+            Fungus = new FungusActor() { Energy = 0, Speed = 50 };
+
+            //setup TimeSystem
+            ActorUpdater = new TimeSystem();
+            ActorUpdater.Actors.Add(Hero);
+            ActorUpdater.Actors.Add(Fungus);
         }
 
         public void MoveHero(int dx, int dy)
@@ -58,62 +70,15 @@ namespace E2M6
             int newy = Hero.Y + dy;
             if (Cave[newx, newy].Kind == CellKind.Empty)
             {
-                //todo: time system?
-
                 //move
                 Hero.X = newx;
                 Hero.Y = newy;
                 Cave.UpdateVisibility(Hero.X, Hero.Y, Hero.ViewRadius);
 
-                //grown
-                UpdateFungus();
+                //time system
+                ActorUpdater.UpdateActor(Hero, 1000);
+                ActorUpdater.UpdateActors(Hero);
             }
-        }
-
-        public void UpdateFungus()
-        {
-            for (int i = 0; i < Cave.Width; i++)
-                for (int j = 0; j < Cave.Height; j++)
-                    if (Cave[i, j].Fungus > 0)
-                    {
-                        ChangeFungus(i, j, 1); // normal grow
-                        if (Cave[i,j].Toxic > 0.1) //dung grow
-                        {
-                            double delta = Cave[i, j].Toxic * 0.25;
-                            ChangeDung(i, j, -delta);
-                            ChangeFungus(i, j, +delta);
-                        }
-                        ExpandFungus(i, j);
-                    }
-        }
-
-        void ExpandFungus(int x, int y)
-        {
-            if (Cave[x, y].Fungus > 4)
-            {
-                double delta = 0;
-
-                if (Cave[x - 1, y].Kind == CellKind.Empty) { ChangeFungus(x - 1, y, 1); delta++; }
-                if (Cave[x + 1, y].Kind == CellKind.Empty) { ChangeFungus(x + 1, y, 1); delta++; }
-                if (Cave[x, y - 1].Kind == CellKind.Empty) { ChangeFungus(x, y - 1, 1); delta++; }
-                if (Cave[x, y + 1].Kind == CellKind.Empty) { ChangeFungus(x, y + 1, 1); delta++; }
-
-                ChangeFungus(x, y, -delta);
-            }
-        }
-
-        void ChangeFungus(int x, int y, double delta)
-        {
-            Cell cell = Cave[x, y];
-            cell.Fungus += delta;
-            Cave[x, y] = cell;
-        }
-
-        void ChangeDung(int x, int y, double delta)
-        {
-            Cell cell = Cave[x, y];
-            cell.Toxic += delta;
-            Cave[x, y] = cell;
         }
     }
 }

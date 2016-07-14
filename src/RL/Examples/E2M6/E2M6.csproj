@@ -49,7 +49,7 @@
     <Compile Include="ControlManager.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="Global.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Actors\PlayerActor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\Screen.cs" />
