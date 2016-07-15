@@ -38,14 +38,14 @@ namespace E2M6.Actors
                     {
                         //dec toxic
                         ChangeToxic(i,j, -1);
-
+                    }
+                    else if (Cave[i, j].Toxic <= 0 && Cave[i, j].Spores)
+                    {
                         //spores
-                        if (Cave[i, j].Toxic <= 0 && Cave[i, j].Spores)
-                            if (Global.rnd.Next(100) <= Global.Cfg.FungusBirth)
-                                ChangeFungus(i, j, 1);
+                        if (Global.rnd.Next(100) <= Global.Cfg.FungusBirth)
+                            ChangeFungus(i, j, 1);
                     }
                 }
-                    
         }
 
         void ExpandFungus(int x, int y)
