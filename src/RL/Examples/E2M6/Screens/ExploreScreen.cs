@@ -21,6 +21,7 @@ namespace E2M6.Screens
             if (e.Kind == EventKind.Key && e.Key.Press)
             {
                 if (e.Key.Key == ConsoleKey.Escape) Global.Sys.CurrentScreen = Global.Sys.MainMenu;
+                else if (Global.Sys.Control.Wait           (e.Key.Key)) Move( 0,  0);
                 else if (Global.Sys.Control.MoveToLeft     (e.Key.Key)) Move(-1,  0);
                 else if (Global.Sys.Control.MoveToRight    (e.Key.Key)) Move(+1,  0);
                 else if (Global.Sys.Control.MoveToUp       (e.Key.Key)) Move( 0, -1);
@@ -79,7 +80,9 @@ namespace E2M6.Screens
                 else if (cell.Kind == CellKind.Empty) res = new CharInfo('.', Color.LightGray, Color.Black);
 
                 //fungus
-                if (cell.Fungus > 0) res = new CharInfo('"', Color.Green, Color.Black);
+                if (cell.Fungus > 0) res = new CharInfo('\'', Color.Green, Color.Black);
+                if (cell.Fungus > Global.Cfg.FungusYoung) res = new CharInfo('"', Color.Green, Color.Black);
+                if (cell.Fungus > Global.Cfg.FungusMid) res = new CharInfo('"', Color.Yellow, Color.Black);
 
                 //items
                 //...

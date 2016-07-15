@@ -630,6 +630,26 @@ namespace RL
             return val;
         }
 
+        //read from config (double)
+        public static double ReadConfigDouble(string key, double dflt = 0, double min = double.MinValue, double max = double.MaxValue)
+        {
+            if (String.IsNullOrEmpty(key))
+                return dflt;
+
+            double val = 0;
+            if (!double.TryParse(ConfigurationManager.AppSettings[key], out val))
+                val = dflt;
+
+            //foolproof
+            if (min > max) { double t = min; min = max; max = min; }
+
+            //limits
+            if (val < min) val = min;
+            if (val > max) val = max;
+
+            return val;
+        }
+
         //read from config (Color)
         public static Color ReadConfigColor(string key, Color dflt = Color.Black)
         {

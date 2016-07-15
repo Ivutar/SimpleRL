@@ -41,11 +41,9 @@ namespace E2M6
             {
                 Cave.GetRandomEmptyCell(out x, out y);
                 Cell cell = Cave[x, y];
-                cell.Fungus = 10;
+                cell.Fungus = Global.rnd.Next((int)Global.Cfg.FungusOld);
                 Cave[x, y] = cell;
             }
-            //for (int i = 0; i < 10; i++)
-            //    UpdateFungus(); //some fungus grown
 
             //fill cave (monsters, items, bio, vegetation, traps and etc)
             //...

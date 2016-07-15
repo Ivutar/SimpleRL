@@ -14,32 +14,57 @@ namespace E2M6.Actors
 
             for (int i = 0; i < Cave.Width; i++)
                 for (int j = 0; j < Cave.Height; j++)
+                {
                     if (Cave[i, j].Fungus > 0)
                     {
-                        ChangeFungus(i, j, 1); // normal grow
-                        if (Cave[i, j].Toxic > 0.1) //dung grow
+                        //fungus grow
+                        if (Cave[i, j].Fungus < Global.Cfg.FungusOld)
+                            ChangeFungus(i, j, 1);
+
+                        if (Cave[i, j].Fungus > Global.Cfg.FungusYoung)
                         {
-                            double delta = Cave[i, j].Toxic * 0.25;
-                            ChangeDung(i, j, -delta);
-                            ChangeFungus(i, j, +delta);
+                            //expand fungus
+                            ExpandFungus(i, j);
+
+                            //inc toxic
+                            ChangeToxic(i, j, 1);
                         }
-                        ExpandFungus(i, j);
+
+                        //die fungus
+                        if (Cave[i, j].Fungus < Cave[i, j].Toxic)
+                            DieFungus(i, j);
                     }
+                    else if (Cave[i, j].Toxic > 0)
+                    {
+                        //dec toxic
+                        ChangeToxic(i,j, -1);
+
+                        //spores
+                        if (Cave[i, j].Toxic <= 0 && Cave[i, j].Spores)
+                            if (Global.rnd.Next(100) <= Global.Cfg.FungusBirth)
+                                ChangeFungus(i, j, 1);
+                    }
+                }
+                    
         }
 
         void ExpandFungus(int x, int y)
         {
-            if (Global.Game.Cave[x, y].Fungus > 4)
+            if (Global.Game.Cave[x, y].Fungus > Global.Cfg.FungusYoung)
             {
-                double delta = 0;
-
-                if (Global.Game.Cave[x - 1, y].Kind == CellKind.Empty) { ChangeFungus(x - 1, y, 1); delta++; }
-                if (Global.Game.Cave[x + 1, y].Kind == CellKind.Empty) { ChangeFungus(x + 1, y, 1); delta++; }
-                if (Global.Game.Cave[x, y - 1].Kind == CellKind.Empty) { ChangeFungus(x, y - 1, 1); delta++; }
-                if (Global.Game.Cave[x, y + 1].Kind == CellKind.Empty) { ChangeFungus(x, y + 1, 1); delta++; }
-
-                ChangeFungus(x, y, -delta);
+                if (Global.Game.Cave[x - 1, y].Kind == CellKind.Empty && Global.Game.Cave[x - 1, y].Toxic <= 0) ChangeFungus(x - 1, y, 1); 
+                if (Global.Game.Cave[x + 1, y].Kind == CellKind.Empty && Global.Game.Cave[x + 1, y].Toxic <= 0) ChangeFungus(x + 1, y, 1);
+                if (Global.Game.Cave[x, y - 1].Kind == CellKind.Empty && Global.Game.Cave[x, y - 1].Toxic <= 0) ChangeFungus(x, y - 1, 1);
+                if (Global.Game.Cave[x, y + 1].Kind == CellKind.Empty && Global.Game.Cave[x, y + 1].Toxic <= 0) ChangeFungus(x, y + 1, 1);
             }
+        }
+
+        void DieFungus(int x, int y)
+        {
+            Cell cell = Global.Game.Cave[x, y];
+            cell.Fungus = 0;
+            cell.Spores = true;
+            Global.Game.Cave[x, y] = cell;
         }
 
         void ChangeFungus(int x, int y, double delta)
@@ -49,10 +74,10 @@ namespace E2M6.Actors
             Global.Game.Cave[x, y] = cell;
         }
 
-        void ChangeDung(int x, int y, double delta)
+        void ChangeToxic(int x, int y, double toxic)
         {
             Cell cell = Global.Game.Cave[x, y];
-            cell.Toxic += delta;
+            cell.Toxic += toxic;
             Global.Game.Cave[x, y] = cell;
         }
 
