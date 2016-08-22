@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using E2M6.Actors;
 
 namespace E2M6
 {
@@ -14,9 +13,11 @@ namespace E2M6
         public TimeSystem ActorUpdater;
         public PlayerActor Hero;
         public FungusActor Fungus;
+        public List<Actor> Mobs;
 
         public GameData()
         {
+            Mobs = new List<Actor>();
         }
 
         public void StartNewGame(int size, int pop, int lvl, int hero_class)
@@ -60,6 +61,7 @@ namespace E2M6
             ActorUpdater = new TimeSystem();
             ActorUpdater.Actors.Add(Hero);
             ActorUpdater.Actors.Add(Fungus);
+            ActorUpdater.Actors.AddRange(Mobs);
         }
 
         public void MoveHero(int dx, int dy)

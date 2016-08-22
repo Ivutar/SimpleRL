@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E2M6.Actors
+namespace E2M6
 {
     class TimeSystem
     {

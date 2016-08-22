@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace E2M6
 {
-    class PlayerActor : LiveActor
+    class WormActor : LiveActor
     {
-        public int ViewRadius { get; set; }
-
-        //todo: exp, lvl, class, inventory and so on
+        public int Size { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
 
         public override void Update(ref UpdateEvent e)
         {

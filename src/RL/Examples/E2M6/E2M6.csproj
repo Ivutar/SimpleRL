@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\FungusActor.cs" />
+    <Compile Include="Actors\LiveActor.cs" />
     <Compile Include="Actors\TimeSystem.cs" />
+    <Compile Include="Actors\WormActor.cs" />
     <Compile Include="CaveGenerator.cs" />
     <Compile Include="CfgData.cs" />
     <Compile Include="ControlManager.cs" />
