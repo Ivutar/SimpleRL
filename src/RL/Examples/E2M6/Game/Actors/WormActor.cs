@@ -14,7 +14,19 @@ namespace E2M6
 
         public override void Update(ref UpdateEvent e)
         {
-            //...
+            var Cave = Global.Game.Cave;
+            int dx = Global.rnd.Next(-1, 2);
+            int dy = Global.rnd.Next(-1, 2);
+
+            //simple move logic
+            if (Cave[X + dx, Y + dy].Kind == CellKind.Empty)
+            {
+                X += dx;
+                Y += dy;
+
+                //update move logic (attack, eat, and etc)
+                //...
+            }
         }
     }
 }
