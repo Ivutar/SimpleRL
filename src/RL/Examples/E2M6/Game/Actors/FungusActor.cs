@@ -52,10 +52,10 @@ namespace E2M6
         {
             if (Global.Game.Cave[x, y].Fungus > Global.Cfg.FungusYoung)
             {
-                if (Global.Game.Cave[x - 1, y].Kind == CellKind.Empty && Global.Game.Cave[x - 1, y].Toxic <= 0) ChangeFungus(x - 1, y, 1); 
-                if (Global.Game.Cave[x + 1, y].Kind == CellKind.Empty && Global.Game.Cave[x + 1, y].Toxic <= 0) ChangeFungus(x + 1, y, 1);
-                if (Global.Game.Cave[x, y - 1].Kind == CellKind.Empty && Global.Game.Cave[x, y - 1].Toxic <= 0) ChangeFungus(x, y - 1, 1);
-                if (Global.Game.Cave[x, y + 1].Kind == CellKind.Empty && Global.Game.Cave[x, y + 1].Toxic <= 0) ChangeFungus(x, y + 1, 1);
+                if (Global.Game.Cave[x - 1, y].Kind == CellKind.Empty && Global.Game.Cave[x - 1, y].Toxic <= 0 && Global.rnd.Next(10) < 3) ChangeFungus(x - 1, y, 1);
+                if (Global.Game.Cave[x + 1, y].Kind == CellKind.Empty && Global.Game.Cave[x + 1, y].Toxic <= 0 && Global.rnd.Next(10) < 3) ChangeFungus(x + 1, y, 1);
+                if (Global.Game.Cave[x, y - 1].Kind == CellKind.Empty && Global.Game.Cave[x, y - 1].Toxic <= 0 && Global.rnd.Next(10) < 3) ChangeFungus(x, y - 1, 1);
+                if (Global.Game.Cave[x, y + 1].Kind == CellKind.Empty && Global.Game.Cave[x, y + 1].Toxic <= 0 && Global.rnd.Next(10) < 3) ChangeFungus(x, y + 1, 1);
             }
         }
 

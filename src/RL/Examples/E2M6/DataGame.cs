@@ -47,7 +47,7 @@ namespace E2M6
             }
 
             //worms
-            cnt = Cave.Width * Cave.Height / 32;
+            cnt = Cave.Width * Cave.Height / 64;
             while (cnt-- > 0)
             {
                 Cave.GetRandomEmptyCell(out x, out y);
