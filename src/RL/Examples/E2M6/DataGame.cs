@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace E2M6
 {
-    class GameData
+    class DataGame
     {
-        public World Cave;
+        public Space Cave;
 
         public TimeSystem ActorUpdater;
         public PlayerActor Hero;
         public FungusActor Fungus;
         public List<Actor> Mobs;
 
-        public GameData()
+        public DataGame()
         {
             Mobs = new List<Actor>();
         }
@@ -25,7 +25,7 @@ namespace E2M6
             int x, y;
 
             //create cave
-            Cave = World.New(size);
+            Cave = Space.New(size);
 
             //dung
             for (int i = 0; i < Cave.Width; i++)

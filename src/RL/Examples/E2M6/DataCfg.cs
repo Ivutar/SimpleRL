@@ -7,7 +7,7 @@ using RL;
 
 namespace E2M6
 {
-    class CfgData
+    class DataCfg
     {
         bool showall;
         int fungusbirth;
@@ -24,7 +24,7 @@ namespace E2M6
         public double FungusMid { get { return fungusmid; } }
         public double FungusOld { get { return fungusold; } }
 
-        public CfgData ()
+        public DataCfg ()
         {
             showall = Util.ReadConfigBool("DBG.ShowAll");
 

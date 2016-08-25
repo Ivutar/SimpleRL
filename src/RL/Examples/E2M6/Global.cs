@@ -15,9 +15,9 @@ namespace E2M6
         public static Dictionary<string, ColorInfo> decor; //colored string decoration
 
         //grouped data containers
-        public static GameData Game;
-        public static SysData Sys;
-        public static CfgData Cfg;
+        public static DataGame Game;
+        public static DataSys Sys;
+        public static DataCfg Cfg;
 
         static Global()
         {
@@ -26,9 +26,9 @@ namespace E2M6
             decor["title"] = new ColorInfo { Fore = Color.LightRed };
             decor["key"] = new ColorInfo { Fore = Color.LightGreen };
 
-            Game = new GameData();
-            Sys = new SysData();
-            Cfg = new CfgData();
+            Game = new DataGame();
+            Sys = new DataSys();
+            Cfg = new DataCfg();
         }
     }
 }

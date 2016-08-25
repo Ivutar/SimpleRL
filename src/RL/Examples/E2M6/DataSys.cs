@@ -8,7 +8,7 @@ using E2M6.Screens;
 
 namespace E2M6
 {
-    class SysData
+    class DataSys
     {
         //controls
         public ControlManager Control;
@@ -27,7 +27,7 @@ namespace E2M6
         //main loop
         public bool Play { get; set; }
 
-        public SysData ()
+        public DataSys ()
         {
             Control = new ControlManager();
 
