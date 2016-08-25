@@ -47,7 +47,21 @@ namespace E2M6.Screens
                 }
 
             //draw monsters, items and etc
-            //...
+            foreach (Actor actor in Global.Game.Mobs)
+            {
+                //worms
+                if (actor is WormActor)
+                {
+                    WormActor worm = actor as WormActor;
+                    if (IsCellVisible(worm.X, worm.Y))
+                    {
+                        Util.Buffer.Write(worm.X - viewx, worm.Y - viewy, "w", Color.White, Color.Black);
+                    }
+                }
+
+                //other monsters
+                //...
+            }
 
             //draw hero
             Util.Buffer.Write(Global.Game.Hero.X - viewx, Global.Game.Hero.Y - viewy, "@", Color.LightRed, Color.Black);
@@ -59,6 +73,11 @@ namespace E2M6.Screens
         {
             viewx = FitView(Global.Game.Hero.X, Util.Buffer.Width, Global.Game.Cave.Width);
             viewy = FitView(Global.Game.Hero.Y, Util.Buffer.Height, Global.Game.Cave.Height);
+        }
+
+        bool IsCellVisible (int x, int y)
+        {
+            return Global.Cfg.ShowAll || Global.Game.Cave[x, y].Visible;
         }
 
         CharInfo GetCellCharInfo(int x, int y)
@@ -88,7 +107,7 @@ namespace E2M6.Screens
                 //...
 
                 //npc
-                //...
+                //... ???
 
                 //memorize
                 if (!Global.Cfg.ShowAll)

@@ -46,6 +46,16 @@ namespace E2M6
                 Cave[x, y] = cell;
             }
 
+            //worms
+            cnt = Cave.Width * Cave.Height / 32;
+            while (cnt-- > 0)
+            {
+                Cave.GetRandomEmptyCell(out x, out y);
+                WormActor worm = new WormActor() { X = x, Y = y, Health = 10, Speed = Global.rnd.Next(60, 100), Title = string.Format("Червь #{0}", cnt), };
+                worm.Description = string.Format("Имя: '{0}' Скорость: {1} Здоровье: {2}", worm.Title, worm.Speed, worm.Health);
+                Mobs.Add(worm);
+            }
+
             //fill cave (monsters, items, bio, vegetation, traps and etc)
             //...
 
