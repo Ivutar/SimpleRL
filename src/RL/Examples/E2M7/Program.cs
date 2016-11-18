@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RL;
+using SharpNoise;
 
 namespace E2M7
 {
