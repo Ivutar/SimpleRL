@@ -568,7 +568,7 @@ namespace RL
             WinCon.WriteConsoleOutput(handle, buf, size, coord, ref rc);
         }
 
-        #region [ Read from config ]
+        #region [ Work with config ]
 
         //read from config (bool)
         public static bool ReadConfigBool(string key, bool dflt = false)
@@ -630,6 +630,26 @@ namespace RL
             return val;
         }
 
+        //read from config (double)
+        public static double ReadConfigDouble(string key, double dflt = 0, double min = double.MinValue, double max = double.MaxValue)
+        {
+            if (String.IsNullOrEmpty(key))
+                return dflt;
+
+            double val = 0;
+            if (!double.TryParse(ConfigurationManager.AppSettings[key], out val))
+                val = dflt;
+
+            //foolproof
+            if (min > max) { double t = min; min = max; max = min; }
+
+            //limits
+            if (val < min) val = min;
+            if (val > max) val = max;
+
+            return val;
+        }
+
         //read from config (Color)
         public static Color ReadConfigColor(string key, Color dflt = Color.Black)
         {
@@ -641,6 +661,15 @@ namespace RL
                 val = dflt;
 
             return val;
+        }
+
+        public static void UpdateAppSettings(string theKey, string theValue)
+        {
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (ConfigurationManager.AppSettings.AllKeys.Contains(theKey))
+                configuration.AppSettings.Settings[theKey].Value = theValue;
+            configuration.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         #endregion

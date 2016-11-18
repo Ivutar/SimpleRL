@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RL;
 using RL.FOV;
 
 namespace E2M6
@@ -19,14 +20,21 @@ namespace E2M6
         public CellKind Kind;
         public bool Explored;
         public bool Visible;
+
+        public CharInfo Memorized;
+
+        //fungus
+        public double Toxic;
+        public double Fungus;
+        public bool Spores;
     }
 
-    class World
+    class Space
     {
         //data
         IFOV fov;
         Random rnd = new Random();
-        Cell default_cell = new Cell() { Kind = CellKind.Wall, Explored = false, Visible = false };
+        Cell default_cell = new Cell() { Kind = CellKind.Wall, Explored = false, Visible = false, Memorized = new CharInfo(' ', Color.White, Color.Black) };
         Cell[,] cells;
 
         //properties
@@ -47,7 +55,7 @@ namespace E2M6
             }
         }
 
-        public World(int width, int height)
+        public Space(int width, int height)
         {
             width = width < 3 ? 3 : width;
             height = height < 3 ? 3 : height;
@@ -106,23 +114,26 @@ namespace E2M6
             //...
         }
 
-        public static World Load(string filename)
+        public static Space Load(string filename)
         {
             //...
             return null;
         }
 
-        public static World New (int size)
+        public static Space New (int size)
         {
             int width = 80 + 80 * size;
             int height = 25 + 25 * size;
 
-            World world = new World(width, height);
+            Space world = new Space(width, height);
 
             CaveGenerator generator = new CaveGenerator(width, height, 0.4, 5, 3, 10);
             for (int x = 0; x < width; x++)
                 for (int y = 0; y < height; y++)
+                {
                     world.cells[x, y].Kind = generator[x, y] == 0 ? CellKind.Empty : CellKind.Wall;
+                    world.cells[x, y].Memorized = new CharInfo(' ', Color.White, Color.Black);
+                }
 
             return world;
         }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RL;
 
-namespace E2M6
+namespace E2M6.Screens
 {
     abstract class Screen
     {

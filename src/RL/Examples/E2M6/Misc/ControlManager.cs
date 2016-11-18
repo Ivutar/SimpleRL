@@ -16,6 +16,11 @@ namespace E2M6
         //Save
         //Load
 
+        public bool Wait(ConsoleKey key)
+        {
+            return key == ConsoleKey.NumPad5;
+        }
+
         public bool MoveToLeft (ConsoleKey key)
         {
             return key == ConsoleKey.LeftArrow || key == ConsoleKey.NumPad4;

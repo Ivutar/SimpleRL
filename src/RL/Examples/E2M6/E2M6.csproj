@@ -41,20 +41,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CaveGenerator.cs" />
-    <Compile Include="ControlManager.cs" />
+    <Compile Include="Game\Actors\Actor.cs" />
+    <Compile Include="Game\Actors\FungusActor.cs" />
+    <Compile Include="Game\Actors\LiveActor.cs" />
+    <Compile Include="Game\Actors\TimeSystem.cs" />
+    <Compile Include="Game\Actors\WormActor.cs" />
+    <Compile Include="Misc\CaveGenerator.cs" />
+    <Compile Include="DataCfg.cs" />
+    <Compile Include="Misc\ControlManager.cs" />
+    <Compile Include="DataGame.cs" />
     <Compile Include="Global.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Game\Actors\PlayerActor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Screen.cs" />
+    <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\AchievementsScreen.cs" />
+    <Compile Include="Screens\HighscoresScreen.cs" />
     <Compile Include="Screens\KoboldopediaScreen.cs" />
     <Compile Include="Screens\LoadScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\ExploreScreen.cs" />
     <Compile Include="Screens\NewGameScreen.cs" />
-    <Compile Include="World.cs" />
+    <Compile Include="Screens\SettingsScreen.cs" />
+    <Compile Include="DataSys.cs" />
+    <Compile Include="Game\Space.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -69,6 +79,7 @@
       <Name>RL.UI</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

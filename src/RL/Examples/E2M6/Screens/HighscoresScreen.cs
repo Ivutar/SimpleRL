@@ -7,9 +7,9 @@ using RL;
 
 namespace E2M6.Screens
 {
-    class ContinueScreen : Screen
+    class HighscoresScreen : Screen
     {
-        public ContinueScreen()
+        public HighscoresScreen()
         {
             //...
         }
@@ -31,7 +31,7 @@ namespace E2M6.Screens
             Util.Buffer.Clear();
 
             //title
-            CharInfo[] title = "{title}Continue playing{/}".Decorate(Global.decor, Color.LightGray, Color.Black);
+            CharInfo[] title = "{title}Highscores{/}".Decorate(Global.decor, Color.LightGray, Color.Black);
             int titlex = (Util.Buffer.Width - title.Length) / 2;
             int titley = 1;
             Util.Buffer.Write(titlex, titley, title);

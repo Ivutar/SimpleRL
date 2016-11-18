@@ -61,14 +61,14 @@ namespace E2M6.Screens
             {
                 if (e.Key.Key == ConsoleKey.Escape)
                 {
-                    Global.CurrentScreen = Global.MainMenu;
+                    Global.Sys.CurrentScreen = Global.Sys.MainMenu;
                 }
                 else if (e.Key.Key == ConsoleKey.Enter) 
                 {
                     //start new game
-                    Global.StartNewGame(cave_size_menu.Current, popuplation_menu.Current, level_menu.Current, class_menu.Current);
-                    Global.CurrentScreen = Global.Explore;
-                    Global.Explore.UpdateView(); //center view on hero
+                    Global.Game.StartNewGame(cave_size_menu.Current, popuplation_menu.Current, level_menu.Current, class_menu.Current);
+                    Global.Sys.CurrentScreen = Global.Sys.Explore;
+                    Global.Sys.Explore.UpdateView(); //center view on hero
                 }
                 else if (e.Key.Key == ConsoleKey.UpArrow)
                 {
@@ -91,21 +91,26 @@ namespace E2M6.Screens
         {
             Util.Buffer.Clear();
 
+            //title
+            CharInfo[] title = "{title}Start new game{/}".Decorate(Global.decor, Color.LightGray, Color.Black);
+            int titlex = (Util.Buffer.Width - title.Length) / 2;
+            int titley = 1;
+            Util.Buffer.Write(titlex, titley, title);
+
             //menu
-            Color title = Color.Heaven;
+            Color header = Color.Heaven;
             int menuwd = 5 * 10;
-            int menuhg = menus.Length * 4;
             int left = (Util.Buffer.Width - menuwd) / 2;
-            int top = (Util.Buffer.Height - menuhg) / 2;
+            int top = titley + 4;
             cave_size_menu.Draw();
             popuplation_menu.Draw();
             level_menu.Draw();
             class_menu.Draw();
 
-            Util.Buffer.Write(left - 1, top + 4 * 0 - 2, "Cave size",       title);
-            Util.Buffer.Write(left - 1, top + 4 * 1 - 2, "Cave population", title);
-            Util.Buffer.Write(left - 1, top + 4 * 2 - 2, "Starting level",  title);
-            Util.Buffer.Write(left - 1, top + 4 * 3 - 2, "Hero class",      title);
+            Util.Buffer.Write(left - 1, top + 4 * 0 - 2, "Cave size",       header);
+            Util.Buffer.Write(left - 1, top + 4 * 1 - 2, "Cave population", header);
+            Util.Buffer.Write(left - 1, top + 4 * 2 - 2, "Starting level",  header);
+            Util.Buffer.Write(left - 1, top + 4 * 3 - 2, "Hero class",      header);
 
             Util.Buffer.Copy(cave_size_menu,   left, top + 4 * 0);
             Util.Buffer.Copy(popuplation_menu, left, top + 4 * 1);

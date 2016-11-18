@@ -16,11 +16,13 @@ namespace E2M6.Screens
         {
             fone = Canvas.Load(@"..\..\fone.rl");
 
-            menu = new Menu(18, 5, new string[] {
+            menu = new Menu(18, 7, new string[] {
                 "  Start new game  ",
-                "     Load game    ",
+                " Continue playing ",
                 "   Achievements   ",
                 "   Koboldopedia   ",
+                "    Highscores    ",
+                "     Settings     ",
                 "       Exit       ",
             })
             {
@@ -38,27 +40,37 @@ namespace E2M6.Screens
                 {
                     //Start new game
                     //... reset new game screen
-                    Global.CurrentScreen = Global.NewGame;
+                    Global.Sys.CurrentScreen = Global.Sys.NewGame;
                 }
                 else if (index == 1)
                 {
                     //Load game
-                    Global.CurrentScreen = Global.Load;
+                    Global.Sys.CurrentScreen = Global.Sys.Continue;
                 }
                 else if (index == 2)
                 {
                     //Achievements
-                    Global.CurrentScreen = Global.Achievements;
+                    Global.Sys.CurrentScreen = Global.Sys.Achievements;
                 }
                 else if (index == 3)
                 {
                     //Koboldopedia
-                    Global.CurrentScreen = Global.Koboldopedia;
+                    Global.Sys.CurrentScreen = Global.Sys.Koboldopedia;
                 }
                 else if (index == 4)
                 {
+                    //highscores
+                    Global.Sys.CurrentScreen = Global.Sys.Highscores;
+                }
+                else if (index == 5)
+                {
+                    //settings
+                    Global.Sys.CurrentScreen = Global.Sys.Settings;
+                }
+                else if (index == 6)
+                {
                     //Exit
-                    Global.Play = false;
+                    Global.Sys.Play = false;
                 }
             };
         }
@@ -66,7 +78,7 @@ namespace E2M6.Screens
         public override void Input(RL.Event e)
         {
             if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.Escape)
-                Global.Play = false;
+                Global.Sys.Play = false;
             else
                 menu.Input(e);
         }
