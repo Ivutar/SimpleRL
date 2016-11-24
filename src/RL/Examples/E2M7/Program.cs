@@ -37,14 +37,14 @@ namespace E2M7
 
         static void Main(string[] args)
         {
-            Util.Title = "E2M7 - Infinity Map";
+            Util.Title = "E2M7 - Infinity Map (use arrow keys and shift to scroll)";
             Util.Width = 80;
             Util.Height = 25;
             Util.CursorVisible = false;
 
             float zoom = 0.4f;
             float aspect = (float)Util.Height / Util.Width;
-            float step = 0.02f;
+            float step = zoom / Util.Width;
             var bounds = new RectangleF(0, 0, zoom, zoom * aspect);
 
 
@@ -76,15 +76,16 @@ namespace E2M7
                         CharInfo tile = tiles[tileid];
                         Util.Buffer[x, y] = tile;
                     }
-                Util.Buffer.Write(1, 1, bounds.ToString());
+                Util.Buffer.Write(1, 1, bounds.ToString(), RL.Color.Black, RL.Color.LightGray);
                 Util.Swap();
 
                 //input
                 Event e = Events.GetNext(true);
-                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.LeftArrow)  bounds.Offset(new PointF(-step, 0));
-                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.RightArrow) bounds.Offset(new PointF(+step, 0));
-                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.UpArrow)    bounds.Offset(new PointF(0, -step));
-                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.DownArrow)  bounds.Offset(new PointF(0, +step));
+                float fast = e.Key.Shift ? 10.0f : 1.0f;
+                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.LeftArrow)  bounds.Offset(new PointF(-step * fast, 0));
+                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.RightArrow) bounds.Offset(new PointF(+step * fast, 0));
+                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.UpArrow)    bounds.Offset(new PointF(0, -step * fast));
+                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.DownArrow)  bounds.Offset(new PointF(0, +step * fast));
                 if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.Escape) break;
             }
 
