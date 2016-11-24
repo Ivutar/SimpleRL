@@ -42,6 +42,12 @@ namespace E2M7
             Util.Height = 25;
             Util.CursorVisible = false;
 
+            float zoom = 0.4f;
+            float aspect = (float)Util.Height / Util.Width;
+            float step = 0.02f;
+            var bounds = new RectangleF(0, 0, zoom, zoom * aspect);
+
+
             //rnd generator
             var rnd = new SharpNoise.Modules.RidgedMulti() { Quality = NoiseQuality.Fast };
             //var rnd = new SharpNoise.Modules.Perlin() { OctaveCount = 1, Frequency = 0.5, Persistence = 0.025 };
@@ -55,22 +61,33 @@ namespace E2M7
                 SourceModule = clamp,
             };
             builder.SetDestSize(Util.Width, Util.Height); //4x4 -> 20x20
-            float zoom = 0.4f;
-            float aspect = (float)Util.Height / Util.Width; 
-            var bounds = new RectangleF(0, 0, zoom, zoom * aspect);
-            builder.SetBounds(bounds.Left, bounds.Right, bounds.Top, bounds.Bottom);
-            builder.Build();
 
-            //map
-            for (int x = 0; x < Util.Width; x++)
-                for (int y = 0; y < Util.Height; y++)
-                {
-                    int tileid = (int)Math.Truncate(builder.DestNoiseMap[x, y]);
-                    CharInfo tile = tiles[tileid];
-                    Util.Buffer[x, y] = tile;
-                }
+            while (true)
+            {
+                //rebuild
+                builder.SetBounds(bounds.Left, bounds.Right, bounds.Top, bounds.Bottom);
+                builder.Build();
 
-            Util.Swap();
+                //draw
+                for (int x = 0; x < Util.Width; x++)
+                    for (int y = 0; y < Util.Height; y++)
+                    {
+                        int tileid = (int)Math.Truncate(builder.DestNoiseMap[x, y]);
+                        CharInfo tile = tiles[tileid];
+                        Util.Buffer[x, y] = tile;
+                    }
+                Util.Buffer.Write(1, 1, bounds.ToString());
+                Util.Swap();
+
+                //input
+                Event e = Events.GetNext(true);
+                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.LeftArrow)  bounds.Offset(new PointF(-step, 0));
+                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.RightArrow) bounds.Offset(new PointF(+step, 0));
+                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.UpArrow)    bounds.Offset(new PointF(0, -step));
+                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.DownArrow)  bounds.Offset(new PointF(0, +step));
+                if (e.Kind == EventKind.Key && e.Key.Press && e.Key.Key == ConsoleKey.Escape) break;
+            }
+
         }
     }
 }
